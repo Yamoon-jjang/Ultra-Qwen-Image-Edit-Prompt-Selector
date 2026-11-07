@@ -67,7 +67,7 @@ A standalone, browser-based **prompt builder for Qwen image editing**. Combine 4
 
 **3. Custom preset manager — create and organize your own instructions**
 
-<img src="assets/03-custom-preset-manager.png" alt="Custom preset manager, saved presets, and permanent HTML save instructions" width="1100">
+<img src="assets/04-custom-preset-manager-en.png" alt="English custom preset manager with image count, category, NSFW selection, preset storage and permanent HTML saving" width="1100">
 
 ### Features
 

@@ -1,0 +1,66 @@
+name: Publish v4.0.0 release
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/publish-v4.0.0.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    if: github.repository == 'Yamoon-jjang/Ultra-Qwen-Image-Edit-Prompt-Selector'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out release source
+        uses: actions/checkout@v4
+
+      - name: Check whether the release already exists
+        id: existing
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view v4.0.0 >/dev/null 2>&1; then
+            echo 'exists=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'exists=false' >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Package standalone app, manuals and screenshots
+        if: steps.existing.outputs.exists != 'true'
+        run: |
+          python3 - <<'PY'
+          import pathlib
+          import zipfile
+          root = pathlib.Path('.')
+          name = 'Ultra-Qwen-Image-Edit-Prompt-Selector_v4.0.0.zip'
+          paths = [
+              'README.md',
+              'Ultra_qwen_prompt_selecter_v4.html',
+              'Ultra_qwen_prompt_selecter_v4_Manual_EN.txt',
+              'Ultra_qwen_prompt_selecter_v4_메뉴얼.txt',
+          ]
+          paths += sorted(str(p) for p in root.glob('assets/*.png'))
+          with zipfile.ZipFile(name, 'w', zipfile.ZIP_DEFLATED, compresslevel=9) as z:
+              for path in paths:
+                  if not (root / path).is_file():
+                      raise RuntimeError('Missing release file: ' + path)
+                  z.write(path, path)
+          print(f'Created {name}: {len(paths)} files')
+          PY
+          sha256sum Ultra-Qwen-Image-Edit-Prompt-Selector_v4.0.0.zip > Ultra-Qwen-Image-Edit-Prompt-Selector_v4.0.0.zip.sha256
+
+      - name: Publish GitHub Release v4.0.0
+        if: steps.existing.outputs.exists != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create v4.0.0 \
+            Ultra-Qwen-Image-Edit-Prompt-Selector_v4.0.0.zip \
+            Ultra-Qwen-Image-Edit-Prompt-Selector_v4.0.0.zip.sha256 \
+            --title 'Ultra Qwen Image Edit Prompt Selector v4.0.0' \
+            --notes-file RELEASE_NOTES_v4.0.0.md \
+            --target "$GITHUB_SHA"
