@@ -39,6 +39,16 @@ A standalone, browser-based **prompt builder for Qwen image editing**. Combine 4
 - **나만의 프리셋:** 커스텀 명령의 추가·수정·삭제, 브라우저 저장 및 HTML 파일에 영구 반영하는 기능을 제공합니다.
 - **간편한 결과 활용:** 프롬프트 복사, TXT 저장, 직접 입력을 지원합니다. 한국어 모드에는 영문 프롬프트의 한국어 번역 기능도 있습니다(네트워크 연결이 필요할 수 있음).
 
+### 추천 조합: Ultra Qwen Image Editor + PiD와 함께 사용하기
+
+**[야문짱의 comfyui-Ultra-Qwen-Image-Editor](https://github.com/Yamoon-jjang/comfyui-Ultra-Qwen-Image-Editor)**와 함께 사용하면 두 앱의 장점을 최대한 활용할 수 있습니다. 이 선택기에서 **4,927개 프리셋으로 영어 편집 프롬프트를 작성**하고, ComfyUI 커스텀 노드에서 **Qwen Image Edit 2511 또는 Qwen Image 2.1로 실제 이미지 편집을 실행**하는 조합입니다.
+
+1. 본 앱에서 입력 이미지 수(1~3장)와 편집 프리셋을 선택한 뒤 최종 영어 프롬프트를 **복사**합니다.
+2. ComfyUI의 **Ultra Qwen Image Editor + PiD** 노드에서 해당 이미지들을 `image1`, `image2`, `image3` 순서대로 연결하고 **Edit Target**을 `image1`로 지정합니다.
+3. 생성된 문장을 노드의 **Positive Prompt(긍정 프롬프트)** 입력란에 붙여 넣고 편집을 실행합니다.
+
+> **연동 범위:** 자동 연결되는 두 프로그램이 아니라 **프롬프트 복사·붙여넣기 방식**입니다. 본 선택기는 최대 3장에 대한 프롬프트를 작성하며, ComfyUI 노드는 Qwen 2511에서 최대 3장, Qwen 2.1에서 최대 10장을 지원합니다. `Edit Target`을 바꾸면 `imageN` 참조가 재배치될 수 있으므로 이미지 역할을 반드시 확인하세요. 실제 속도·화질 향상을 보장하는 기능은 아닙니다.
+
 ### 사용 방법
 
 1. [`Ultra_qwen_prompt_selecter_v4.html`](Ultra_qwen_prompt_selecter_v4.html)을 다운로드한 후 Chrome 또는 Edge에서 엽니다.
@@ -79,6 +89,16 @@ A standalone, browser-based **prompt builder for Qwen image editing**. Combine 4
 - **Bilingual preset search** plus browsing by editing category and optional NSFW preset filtering.
 - **Reusable custom presets.** Add, edit, delete, and search custom instructions. Keep them in browser storage or use the permanent HTML save function for a portable copy.
 - **Copy or export.** Copy the final prompt, save it as a TXT file, and add temporary direct instructions. Korean mode also offers optional English-to-Korean prompt translation.
+
+### Recommended companion: Ultra Qwen Image Editor + PiD
+
+For a more efficient end-to-end editing workflow, pair this prompt builder with **[comfyui-Ultra-Qwen-Image-Editor by Yamoon-jjang](https://github.com/Yamoon-jjang/comfyui-Ultra-Qwen-Image-Editor)**. Use this app to **compose English editing instructions from 4,927 presets**, then use the ComfyUI custom node to **run image edits with Qwen Image Edit 2511 or Qwen Image 2.1**.
+
+1. Choose 1–3 input images and editing presets here, then **Copy** the completed English prompt.
+2. In ComfyUI, connect the matching images to the **Ultra Qwen Image Editor + PiD** node as `image1`, `image2`, and `image3`. Set **Edit Target** to `image1`.
+3. Paste the text into the node's **Positive Prompt** field and execute the editing workflow.
+
+> **Integration note:** The tools work together through **copy and paste**, not an automatic connection. This selector creates prompts for up to 3 images; the ComfyUI node accepts up to 3 for Qwen 2511 or up to 10 for Qwen 2.1. If you change **Edit Target**, check the remapped `imageN` references carefully. This pairing does not guarantee faster execution or better image quality.
 
 ### Quick start
 
