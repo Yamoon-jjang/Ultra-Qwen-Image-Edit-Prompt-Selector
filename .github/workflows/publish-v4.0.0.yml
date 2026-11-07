@@ -29,6 +29,14 @@ jobs:
             echo 'exists=false' >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Remove optional checksum attachment from existing v4.0.0 release
+        if: steps.existing.outputs.exists == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view v4.0.0 --json assets --jq '.assets[].name' | grep -Fxq 'Ultra-Qwen-Image-Edit-Prompt-Selector_v4.0.0.zip.sha256'; then
+            gh release delete-asset v4.0.0 'Ultra-Qwen-Image-Edit-Prompt-Selector_v4.0.0.zip.sha256' --yes
+          fi
       - name: Package standalone app, manuals and screenshots
         if: steps.existing.outputs.exists != 'true'
         run: |
@@ -51,7 +59,6 @@ jobs:
                   z.write(path, path)
           print(f'Created {name}: {len(paths)} files')
           PY
-          sha256sum Ultra-Qwen-Image-Edit-Prompt-Selector_v4.0.0.zip > Ultra-Qwen-Image-Edit-Prompt-Selector_v4.0.0.zip.sha256
 
       - name: Publish GitHub Release v4.0.0
         if: steps.existing.outputs.exists != 'true'
@@ -60,7 +67,6 @@ jobs:
         run: |
           gh release create v4.0.0 \
             Ultra-Qwen-Image-Edit-Prompt-Selector_v4.0.0.zip \
-            Ultra-Qwen-Image-Edit-Prompt-Selector_v4.0.0.zip.sha256 \
             --title 'Ultra Qwen Image Edit Prompt Selector v4.0.0' \
             --notes-file RELEASE_NOTES_v4.0.0.md \
             --target "$GITHUB_SHA"
