@@ -1,0 +1,1784 @@
+﻿ULTRA QWEN IMAGE EDIT PROMPT SELECTOR v4
+COMPLETE ENGLISH USER MANUAL — KO / EN BILINGUAL EDITION
+============================================================
+
+Application: Ultra_qwen_prompt_selecter_v4.html
+Purpose: Build image-editing prompts for Qwen-Image-Edit-2511 and Qwen-Image-2.1
+Package: One standalone HTML app + Korean and English text manuals
+Audience: First-time users, regular image editors, and people creating custom presets
+
+This is a practical guide to the RELEASED bilingual v4 application. It focuses
+on what to click, which images to supply, how to interpret the finished prompt,
+and how to preserve custom presets. The display name uses the standard English
+spelling "Selector." The legacy HTML filename is intentionally retained so
+existing backups and custom-preset saving workflows remain familiar.
+
+The app DOES NOT run Qwen Image Edit or edit image pixels by itself. It prepares
+English text instructions to paste into a compatible image-editing workflow.
+The controls, preset descriptions, and dialogs can be shown in Korean (KO) or
+English (EN); the actual prompt sent to Qwen remains English in either mode.
+
+
+MODEL COMPATIBILITY — QWEN-IMAGE-EDIT-2511 AND QWEN-IMAGE-2.1
+------------------------------------------------------------
+- Qwen-Image-Edit-2511 is an image-editing model. Use the English instructions
+  from this app with a compatible image-editing workflow and its input images.
+- Qwen-Image-2.1 unifies text-to-image creation and image editing. This app
+  targets its EDITING workflow, in which one or more source images are provided.
+- This tool creates text only: it does not select, install, run, or convert models.
+- Although Qwen-Image-2.1 can handle more reference images, this app currently
+  provides presets and explicit roles for only 1, 2, or 3 images.
+- Older Qwen-Image-Edit-2509 workflows may also use these instructions when
+  compatible, but results and image-role handling vary by model and workflow.
+- Always check the actual outputs; matching a model name is not a guarantee
+  that every preset will be followed exactly.
+
+1. WHAT THE APP DOES
+------------------------------------------------------------
+
+Ultra Qwen Image Edit Prompt Selector v4 helps you assemble an image-editing instruction
+by clicking prepared presets instead of writing every prompt from scratch.
+Choose how many input images you will use, browse an editing category, select
+one or more instructions, inspect the finished English prompt, and copy it.
+
+Typical editing goals include:
+
+- Changing a hairstyle, hair color, makeup, or a facial detail.
+- Replacing an outfit or changing a garment's fabric or pattern.
+- Applying a pose, gesture, gaze direction, or composition from a reference.
+- Replacing the setting, changing the time of day, or adjusting lighting.
+- Refining hands, cleaning edges, removing distractions, or restoring detail.
+- Combining different visual references when two or three images are available.
+
+Key characteristics of v4:
+
+- The person or scene being edited is always image1.
+- In multi-image mode, image2 and image3 supply reference information.
+- The old manual Base / Reference role dropdown is not used.
+- Built-in presets are separated into 1-, 2-, and 3-image collections.
+- Different editing actions use suitable verbs, not one generic command.
+- Compatible instructions can coexist; some conflicting instructions are
+  resolved by the prompt builder before being included in the final output.
+- Adult-oriented presets are filtered through the NSFW switch and retain their
+  ordinary category identifiers internally.
+- You can add temporary instructions and save reusable custom presets.
+- The bilingual switch changes what the app displays, not its editing logic.
+
+Use the preview as your final source of truth. The app supplies structured text,
+not a guarantee that a particular model run will obey every requested change.
+
+
+2. FILES INCLUDED IN THE ZIP
+------------------------------------------------------------
+
+Ultra_qwen_prompt_selecter_v4.html
+  Open this file in a browser to use the application. No separate installer is
+  required, and you do not have to launch ComfyUI to build a prompt.
+
+Ultra_qwen_prompt_selecter_v4_메뉴얼.txt
+  The detailed original Korean guide, including examples and usage guidance.
+
+Ultra_qwen_prompt_selecter_v4_Manual_EN.txt
+  This complete English guide to the bilingual edition.
+
+The application still identifies itself as v4. The HTML filename is preserved
+so that existing bookmarks, backup workflows, and user habits remain familiar.
+
+IMPORTANT: Keep the original ZIP somewhere safe. An HTML file that you later
+modify using Permanent Save may contain personal custom instructions.
+
+
+3. FIRST RUN: OPENING THE APP
+------------------------------------------------------------
+
+1) Extract all files from the ZIP to a convenient folder.
+2) Double-click Ultra_qwen_prompt_selecter_v4.html.
+3) If Windows asks which app to use, choose a current Chrome or Edge browser.
+4) At the top of the app, click EN for English or KO for the Korean interface.
+5) Select the same image count that you will provide to your Qwen workflow.
+6) Start with one simple preset, then inspect the English prompt preview.
+
+Most prompt-building features work without an Internet connection. Optional
+online resources, such as web fonts and Korean prompt translation, may require
+network access. A browser can also restrict clipboard or file operations,
+especially when an HTML file is opened locally.
+
+If a local-file permission dialog appears during Permanent Save, read it
+carefully. Permission to read or overwrite a chosen file is different from
+ordinary prompt generation; the latter does not require file access.
+
+
+4. IMAGE ROLES: IMAGE1, IMAGE2, IMAGE3
+------------------------------------------------------------
+
+The image-numbering convention is the most important rule in this application.
+
+ONE IMAGE:
+  image1 = the original person, object, or scene to edit.
+  No additional reference image is required.
+
+TWO IMAGES:
+  image1 = the original image to edit.
+  image2 = the reference image providing the requested feature.
+
+THREE IMAGES:
+  image1 = the original image to edit.
+  image2 = the first reference image.
+  image3 = the second reference image.
+
+The *meaning* of image2 and image3 depends on the preset. In one preset, image2
+may supply clothing; in another, the hairstyle, background, or lighting.
+Their roles are not permanently assigned to fixed categories.
+
+Example:
+  Apply the outfit from image2 and the pose from image3 to image1.
+  Keep the identity in image1 unchanged.
+
+Here the final output is based on image1. Image2 supplies the outfit, and
+image3 supplies the pose. The instruction does not tell Qwen to modify image2
+or image3 as separate final images.
+
+CRITICAL: Load the images into Qwen in precisely the same order. If you swap
+image2 and image3 in your workflow, the model may use the wrong reference.
+
+
+5. A TOUR OF THE INTERFACE
+------------------------------------------------------------
+
+HEADER
+  Shows the app name, version information, and the KO / EN language switch.
+
+CHOOSE IMAGE COUNT
+  Select 1 image, 2 images, or 3 images. The preset collection and image-role
+  explanation change with the selected image count.
+
+PROMPT PREVIEW
+  Shows the composed English editing instruction. The status line can report
+  how many instructions are selected and applied, plus conflict resolution.
+  The Reset, Copy, TXT, and (in KO mode) Translate controls are here.
+
+SELECTED INSTRUCTIONS
+  Displays the presets currently included in your selection. You can remove
+  an item with its small X button. In EN mode the full text is still accessible
+  even when a long selected item is visually shortened.
+
+PRESET SEARCH AND CATEGORY TABS
+  Search by English or Korean keywords, then choose a category such as
+  Face & Hair, Clothing, Pose, Background, Lighting, or Details.
+  The separate NSFW switch controls which adult/general presets are shown.
+
+PRESET CARDS
+  Click a card to select an instruction. Click the same card again to undo
+  that selection. A selected card is visibly highlighted.
+
+QUICK ENTRY
+  Add a one-time English instruction to the current preview without making
+  it a reusable preset. The Korean note field exists only in KO mode.
+
+CUSTOM PRESET MANAGER
+  Add, search, edit, delete, or reset reusable personal presets, and embed
+  saved presets into a selected bilingual HTML file if you choose to.
+
+Some controls move or wrap on narrower screens; the underlying operations
+remain the same.
+
+
+6. THE SIMPLEST COMPLETE WORKFLOW
+------------------------------------------------------------
+
+STEP 1 — Choose an image count.
+  One original only? Select 1 image. One original and one reference? Select
+  2 images. One original and two references? Select 3 images.
+
+STEP 2 — Choose a category.
+  Face & Hair for facial changes; Clothing for outfits; Pose for posture;
+  Background for a new setting; Lighting for light and shadow; Style for
+  appearance; Props for accessories; Details for cleanup and repair.
+
+STEP 3 — Click an editing preset.
+  The selected instruction is added to your working selection. More than
+  one preset can be selected, but start with just one or two.
+
+STEP 4 — Read the English preview.
+  Confirm the requested change, each reference source (image2/image3), and
+  any Keep / Preserve conditions. Check the status and warning area.
+
+STEP 5 — Click Copy.
+  Paste the finished English prompt into your Qwen Image Edit prompt field.
+  Provide the matching image inputs, then run the model in your own workflow.
+
+If the first result is reasonable, add finer adjustments one at a time. This
+makes it easier to see which instruction improved or weakened the result.
+
+
+7. USING ONE-IMAGE MODE
+------------------------------------------------------------
+
+Choose 1 image when all changes are made inside the original image and no
+separate reference is needed.
+
+Examples:
+  - Change hair color to blonde or brown.
+  - Give the person a shorter hairstyle.
+  - Change clothing to a chosen outfit style.
+  - Replace the background with a beach or studio.
+  - Make the lighting warmer or cooler.
+  - Refine skin, hands, or garment edges.
+  - Remove an unwanted object or watermark.
+  - Repair a small damaged or occluded region.
+
+Illustrative prompt structure:
+  Change only the hair color in image1 to blonde.
+  Keep the face, hairstyle, pose, clothing, background, lighting, and framing
+  in image1 unchanged.
+
+The intent is to change a narrowly specified feature while retaining the rest.
+Some single-image presets naturally say "the person" or "the subject" instead
+of repeatedly saying image1. That is part of the original prompt structure,
+not an error in the image numbering.
+
+A useful first test is a simple hair-color change. It reveals whether your
+model is following both the requested edit and the preservation conditions.
+
+
+8. USING TWO-IMAGE MODE
+------------------------------------------------------------
+
+Choose 2 images when image1 is the original and image2 provides a reference.
+
+Common goals:
+  - Apply the face or facial identity from image2 to image1.
+  - Dress the person in image1 in the outfit from image2.
+  - Transfer only hairstyle, hair color, or makeup from image2.
+  - Match a pose, body angle, or gaze direction shown in image2.
+  - Use image2 as a reference for background, lighting, or color mood.
+
+Illustrative prompt structure:
+  Replace only the face in image1 with the face from image2.
+  Keep the hairstyle, hair color, pose, clothing, background, lighting, and
+  framing in image1 unchanged.
+
+For face references, choose a photo with a clearly visible face. For clothing,
+choose one that shows the required garment and its details. For a pose, prefer
+a reference where the limbs and body direction are readable.
+
+Ask a simple question before copying: "Am I transferring the entire feature,
+or only one detail?" For example, a hair-color transfer should not
+accidentally become a complete hairstyle transfer.
+
+
+9. USING THREE-IMAGE MODE
+------------------------------------------------------------
+
+Choose 3 images when the edit draws separately from two references.
+
+Examples:
+  - Outfit from image2 + pose from image3.
+  - Makeup from image2 + hair color from image3.
+  - Background architecture from image2 + lighting from image3.
+  - Object from image2 + hand position from image3.
+  - Visual style from image2 + framing from image3.
+
+Illustrative prompt structure:
+  Apply the outfit from image2 and the pose from image3 to image1.
+  Preserve the identity of the person in image1.
+
+Read each multi-image preset carefully. Image2 is not always "the outfit
+reference," and image3 is not always "the pose reference." Those are just
+useful examples. The particular preset text defines the actual roles.
+
+Three-image edits require more coordination than one-image edits. If a result
+mixes the references incorrectly, try one transfer at a time or use more
+specific presets with explicit "from image2" / "from image3" wording.
+
+
+10. HOW TO READ THE GENERATED PROMPT
+------------------------------------------------------------
+
+The preview is the English text you should provide to Qwen Image Edit.
+Understanding a few recurring phrases makes it easier to review.
+
+  Apply A from image2 to image1
+    Transfer feature A from the reference into the original.
+
+  Apply A from image2 and B from image3 to image1
+    Use a different source image for each of two features.
+
+  Keep ... unchanged / Preserve ...
+    Ask the model to retain specific features from the original.
+
+  Only / Change only
+    Limit the edit to a narrower part of the image.
+
+  Match
+    Adjust an attribute in image1 to resemble the reference attribute.
+
+  Remove / Clean up / Repair / Refine
+    Remove something, reduce visual artifacts, or restore details.
+
+  Replace / Dress / Rebuild
+    Make a more substantial change than a small adjustment.
+
+Before exporting, check four things:
+  1) Which part of image1 is changing?
+  2) Which features come from image2 or image3?
+  3) Which aspects of image1 should stay the same?
+  4) Are any instructions mutually exclusive?
+
+Longer prompts are not automatically better. A short, coherent instruction
+can outperform several competing edits.
+
+
+11. SELECTED INSTRUCTIONS AND CONFLICT HANDLING
+------------------------------------------------------------
+
+You can select multiple presets. The builder applies internal rules to
+reduce certain conflicts before producing the final prompt.
+
+Examples likely to conflict:
+  - Change hair color to black AND change it to blonde.
+  - Replace the background with a beach AND replace it with an indoor room.
+  - Replace the entire outfit AND preserve the entire old outfit.
+  - Use two different full-body poses as the main pose.
+
+An example status might look like:
+  Selected 3 · Applied 2 · Resolved 1 conflict(s)
+
+This means you clicked three items but only two effective instructions are
+being applied after conflict handling. The selected chips may still show an
+excluded choice so you can review and remove it yourself.
+
+Examples that can often coexist:
+  - Background location + weather effect.
+  - Overall outfit + a small clothing detail.
+  - Body orientation + direction of gaze.
+  - Pose change + facial expression adjustment.
+
+IMPORTANT: This is rule-based conflict resolution, not a model interpreting
+your personal intent. Read the final preview even if the status says there
+are no conflicts. Selection order can affect which incompatible instruction
+wins. Reduce the number of changes when a result seems inconsistent.
+
+
+12. SEARCHING FOR PRESETS
+------------------------------------------------------------
+
+Use the preset search field to look for relevant instructions.
+You may search in English or Korean in either UI language.
+
+Useful English search terms:
+  face, hair, blonde, outfit, dress, pose, background, lighting, makeup,
+  hands, remove, restore, camera angle, shadows, detail, scene
+
+The search can display matching entries from all three image-count libraries
+within the currently selected SFW/NSFW filter. The result count includes a
+breakdown by image count, and each result card shows an image-count badge.
+
+Be careful when choosing a result for a different image count. The app may
+ask for confirmation if your current selections would be cleared. After the
+image count changes, you must use the new number of input images in Qwen.
+
+If a search returns nothing:
+  - Clear a very specific query and try a shorter keyword.
+  - Check the SFW/NSFW filter.
+  - Try a related term (e.g., "clothing" instead of "shirt").
+  - Return to All and browse the relevant category.
+
+Search does not translate or rewrite saved presets. It only helps you find
+them, including Korean descriptions stored behind the English interface.
+
+
+13. CATEGORY REFERENCE
+------------------------------------------------------------
+
+All
+  Every visible preset in the current image-count and SFW/NSFW filter.
+
+Face & Hair
+  Face shape, identity, facial details, hair, eye color, lips, makeup, and
+  related appearance edits.
+
+Clothing
+  Garments, dresses, footwear, swimsuits, materials, patterns, fit, design,
+  and outfit-specific detail changes.
+
+Pose
+  Posture, body direction, arm and hand positions, standing or seated poses,
+  body movement, and camera-facing orientation.
+
+Background
+  Indoor and outdoor settings, scenery, rooms, streets, sets, location,
+  weather-related environment edits, and background atmosphere.
+
+Lighting
+  Brightness, shadows, neon, candles, daylight, moonlight, studio lights,
+  direction of illumination, and color temperature.
+
+Style
+  Photorealism, illustration, painting, film looks, rendering approaches,
+  visual treatments, and stylistic color appearance.
+
+Props
+  Bags, flowers, glasses, jewelry, products, handheld objects, accessories,
+  and other scene items.
+
+Body Shape
+  Body proportions, silhouette adjustments, visible skin details, and other
+  body-related changes.
+
+Expression
+  Smiles, gaze, mouth position, eye direction, and emotional expression.
+
+Details
+  Hand correction, object removal, edge cleanup, restoration, denoising,
+  texture refinements, and other fine adjustments.
+
+Interaction
+  Relative position, spacing, gestures, or relationship of multiple people
+  and objects. This is most useful in multi-image workflows.
+
+Category availability can differ by image count and SFW/NSFW mode. Adult mode
+may show more specific category labels for that content. Categories guide
+browsing; a single preset may affect more than one visual property.
+
+
+14. USING THE NSFW FILTER
+------------------------------------------------------------
+
+Click the NSFW control in the category row to browse adult-oriented presets.
+Click it again to return to the general SFW collection.
+
+How the filter works:
+  - SFW shows the general presets, while NSFW shows the adult set.
+  - Adult presets still belong to ordinary internal categories such as
+    Clothing, Pose, Background, Details, or Interaction.
+  - The internal marker for those presets is nsfw:true, not cat:'nsfw'.
+  - Changing SFW/NSFW does NOT automatically delete already selected presets.
+  - Consequently, a selection made in one filter can remain in the final
+    prompt even when its card is no longer visible in the current filter.
+
+To avoid surprises, inspect Selected Instructions and the preview whenever
+you switch modes. If a hidden-by-filter selection is no longer wanted,
+remove it using the X on its selected instruction.
+
+Adult-oriented presets are intended only for clearly adult subjects.
+The capabilities and restrictions of individual models and platforms vary.
+The app creates a text instruction; it cannot guarantee that a requested
+edit will be accepted or rendered as expected by a downstream service.
+
+
+15. QUICK ENTRY: ONE-TIME INSTRUCTIONS
+------------------------------------------------------------
+
+Quick Entry is the small direct-input section beneath the preset selection.
+It is for temporary additions to the current working prompt.
+
+Example English input:
+  Add small gold earrings to the person in image1.
+
+After clicking + Add, the instruction becomes part of the selected prompt.
+It will appear in the preview and be included in Copy and TXT export.
+
+Quick Entry DOES NOT:
+  - Save a reusable preset to the browser's custom list.
+  - Insert anything into an HTML file via Permanent Save.
+  - Replace the Custom Preset Manager.
+
+In KO mode, a separate Korean note can help you recognize the temporary
+selection on screen. In EN mode that Korean field is hidden and not used.
+
+Quick Entry also checks for equivalent selected English instructions before
+adding an exact or normalized duplicate. If it reports that the instruction
+is already selected, remove the original or change your input.
+
+For anything you will use repeatedly, create a saved custom preset instead.
+
+
+16. TWO TYPES OF SAVING: BROWSER AND HTML
+------------------------------------------------------------
+
+A) BROWSER STORAGE (localStorage)
+
+Custom presets added in Custom Preset Manager are saved to the current
+browser's local storage under the qwenCustoms key.
+
+Advantages:
+  - Fast and convenient for testing and ongoing use.
+  - Does not modify the HTML source file on disk.
+
+Limitations:
+  - Browser data cleanup may delete stored presets.
+  - Private/incognito sessions may not retain the data.
+  - Another browser, computer, or file security context may not share it.
+
+B) PERMANENT SAVE INTO HTML
+
+The Permanent Save action reads an HTML file you select and inserts your saved
+custom presets into its EDITS_1, EDITS_2, and EDITS_3 source arrays.
+
+Advantages:
+  - The resulting HTML file carries the embedded custom presets with it.
+  - You can back it up or copy it to another computer.
+
+Limitations:
+  - It modifies or creates an HTML file, depending on browser capabilities.
+  - It requires a backup in case you choose the wrong file or later want to
+    roll back your changes.
+  - Temporary Quick Entry text is never included.
+
+Recommended approach: test presets in browser storage, then use Permanent
+Save only after the results and wording have been verified.
+
+
+17. ADDING A REUSABLE CUSTOM PRESET
+------------------------------------------------------------
+
+Open Custom Preset Manager and supply the following fields.
+
+IMAGE COUNT
+  Choose 1, 2, or 3 images. This determines which preset collection receives
+  the new item, and which category options are available.
+
+CATEGORY
+  Choose the editing domain. For example, select Face & Hair for a hair
+  change, Clothing for outfit transfer, or Details for cleanup.
+
+ADD AS NSFW
+  Enable this only for a clearly adult-oriented preset. The entry remains
+  in the chosen category and appears under the NSFW filter.
+
+ENGLISH INSTRUCTION
+  This is the actual text that the app will use in its prompt builder.
+  Write a specific, clear command rather than disconnected keywords.
+
+KOREAN DESCRIPTION (KO mode only)
+  An optional explanation for the Korean interface. In EN mode the field is
+  hidden; a new English-only entry uses its English text as the fallback
+  for its Korean description.
+
+Click + Add Preset. The entry is stored in the browser and appears in the
+matching preset list and manager.
+
+Examples:
+
+One-image custom preset:
+  Count: 1 image
+  Category: Face & Hair
+  English: Change only the hair color in image1 to warm brown.
+
+Two-image custom preset:
+  Count: 2 images
+  Category: Clothing
+  English: Apply the outfit from image2 to the person in image1.
+           Preserve the face, pose, background, and lighting in image1.
+
+Three-image custom preset:
+  Count: 3 images
+  Category: Pose
+  English: Apply the outfit from image2 and the pose from image3 to image1.
+           Keep the identity in image1 unchanged.
+
+If you edit an existing preset in EN mode, its distinct Korean description
+is preserved. Switch to KO mode if that Korean text also needs editing.
+
+
+18. WRITING USEFUL CUSTOM ENGLISH INSTRUCTIONS
+------------------------------------------------------------
+
+A good custom preset answers three questions:
+  What should change? Where does the reference come from? What must remain?
+
+Prefer:
+  Apply the hairstyle from image2 to image1.
+  Preserve the face identity, hair color, pose, clothing, and background
+  of the person in image1.
+
+Avoid:
+  Make it like the reference.
+
+The vague version does not identify the source or the target.
+
+For three-image combinations, identify each source separately:
+  Apply the makeup style from image2 and the hair color from image3 to image1.
+  Preserve the facial identity in image1.
+
+Useful command verbs:
+  Change / Replace — make a requested change or substitution.
+  Apply / Transfer — bring an attribute from a specific reference image.
+  Match / Align — adjust a feature to resemble an example.
+  Refine / Repair / Clean up — correct quality, structure, or finish.
+  Remove — take an unwanted object or artifact away.
+  Add / Place — insert a requested object, detail, or element.
+
+Use "only" for narrow edits, but do not overuse constraints that contradict
+the requested change. A preset that says "replace the outfit" and "keep
+the outfit unchanged" is internally inconsistent.
+
+The app's English UI does not translate your custom English text. Write it
+in the form you want the prompt generator to use.
+
+
+19. PERMANENTLY EMBEDDING CUSTOM PRESETS IN HTML
+------------------------------------------------------------
+
+Permanent Save makes an HTML copy containing the custom presets you registered
+in Custom Preset Manager. Quick Entry is excluded.
+
+Safe procedure:
+  1) Keep the ZIP and unmodified bilingual HTML as backups.
+  2) Add your custom presets and test their category and image count.
+  3) Check the final prompt using each new preset.
+  4) Click Permanently Save to HTML in the manager.
+  5) Select the BILINGUAL v4 HTML from this package, not an older Korean-only
+     HTML. The bilingual app rejects source files missing its language switch.
+  6) Follow the browser prompt to overwrite, save a copy, or download a file.
+  7) Locate the actual newly saved file and open it in the browser.
+  8) Confirm that the custom presets are now embedded and the KO/EN switch
+     still works in the saved version.
+
+After successful saving, the manager clears its browser-managed custom list
+to avoid duplicate entries when the saved HTML is reopened. Selected custom
+chips may also be removed for consistency, so reopen the final file to test.
+
+If you cancel the file picker, no permanent save is performed. If the browser
+cannot overwrite the original, use the downloaded or Save As version instead.
+
+Do not assume that the original HTML on disk was overwritten just because a
+save message appeared. Check its location and reopen the file you intend to
+use. An older HTML copy can silently confuse which edition is running.
+
+
+20. RESETTING SELECTIONS AND CUSTOM PRESETS
+------------------------------------------------------------
+
+The app has different reset operations. They do not do the same thing.
+
+RESET NEAR THE PROMPT PREVIEW
+  Clears the current editing selection and returns the working prompt to an
+  unselected state. It does not erase saved custom presets from the manager.
+
+RESET IN CUSTOM PRESET MANAGER
+  After confirmation, clears user-managed custom presets from browser storage.
+  It does not remove built-in presets embedded in the HTML file.
+
+What if a preset is already embedded in an HTML file?
+  The manager's browser reset cannot undo the HTML source modification.
+  Reopen an older backup HTML, or carefully remove that entry from the EDITS
+  array in a text editor if you understand JavaScript syntax.
+
+Avoid using reset as a substitute for removing just one instruction. For a
+single unwanted selection, use the selected-chip X button instead.
+
+21. COPY, TXT EXPORT, AND KOREAN TRANSLATION
+------------------------------------------------------------
+
+COPY
+  Copies the currently composed English prompt to your clipboard. Paste it
+  into your Qwen Image Edit workflow's text prompt input. If clipboard access
+  is restricted, follow the app's copy-failure notice and copy manually.
+
+TXT
+  Downloads the currently composed English prompt as a text file, typically
+  named qwen_prompt.txt. This is useful for comparing runs, preserving a good
+  instruction, or recording the prompt used for a particular result.
+
+TRANSLATE (KO mode)
+  Opens a Korean translation view for the finished English prompt. This is a
+  convenience for checking meaning, not a change to the underlying text.
+  The translation feature may need Internet access or a third-party service.
+
+In EN mode the translation control is hidden. The prompt is already English,
+so you can immediately copy it or export it as TXT.
+
+A successful Copy or TXT action does not save custom preset definitions. To
+keep your reusable instructions, use Custom Preset Manager and Permanent Save.
+
+
+22. USING THE PROMPT IN A QWEN IMAGE EDIT WORKFLOW
+------------------------------------------------------------
+
+A typical workflow is:
+
+1) Open your Qwen Image Edit interface or compatible ComfyUI workflow.
+2) Supply one, two, or three images in the required input slots.
+3) In this app, select the matching image-count mode.
+4) Choose the presets that describe your desired change.
+5) Read the final English preview and any warnings.
+6) Click Copy and paste the prompt into the model's text input.
+7) Run the image-edit model using your usual settings.
+8) Compare the output with the intended edit and its preservation conditions.
+
+The number printed in an instruction is meaningful, not decorative.
+
+If a three-image preset uses:
+  outfit from image2, pose from image3
+
+then configure the model input images as:
+  First:  original photo to edit (image1)
+  Second: outfit reference (image2)
+  Third:  pose reference (image3)
+
+The app does not inspect your ComfyUI graph or rearrange model input slots.
+You are responsible for making the order in your workflow match the prompt.
+
+A structurally correct prompt cannot compensate for a workflow that supplies
+images in the wrong order or uses a model without the needed capabilities.
+
+
+23. FIVE PRACTICAL EDITING RECIPES
+------------------------------------------------------------
+
+A. TRANSFER A FACE
+
+  Image count: 2
+  image1: the original image to change
+  image2: a clear face reference
+  Category: Face & Hair
+  Choose a preset that transfers the facial identity from image2 to image1.
+  Check that the generated text preserves hairstyle, pose, clothing, and
+  background if you do not want them changed.
+
+B. TRANSFER AN OUTFIT
+
+  Image count: 2
+  image1: person wearing the original outfit
+  image2: photo showing the desired outfit
+  Category: Clothing
+  Choose a preset for outfit transfer. Read whether it requests the whole
+  garment or just a material, pattern, color, or accessory.
+
+C. COMBINE OUTFIT AND POSE
+
+  Image count: 3
+  image1: original person to edit
+  image2: outfit reference
+  image3: pose reference
+  Category: Clothing or Pose
+  Choose a preset that explicitly uses image2 for clothing and image3 for
+  pose. Verify that the identity in image1 is preserved if needed.
+
+D. CHANGE ONLY THE BACKGROUND
+
+  Image count: 1 for a preset-based new location, or 2 if a specific
+               background reference is available.
+  Category: Background
+  Check that the subject, face, outfit, and pose are retained. If only the
+  lighting should change, use Lighting instead of replacing the whole scene.
+
+E. REMOVE A DISTRACTING OBJECT
+
+  Image count: 1 for a simple cleanup; 2 or 3 only when the selected preset
+               explicitly needs additional texture or lighting references.
+  Category: Details
+  Keep the request focused on the unwanted object and check that the model
+  is not also being asked to redesign the surroundings.
+
+These are examples of how to choose presets, not promises that a single run
+will always reproduce the intended result perfectly.
+
+
+24. TIPS FOR MORE RELIABLE PROMPTS
+------------------------------------------------------------
+
+- Start with the most important edit, not a long list of minor improvements.
+- Test a single face, clothing, pose, or background change before mixing them.
+- Add style, lighting, or cleanup refinements only after the core edit works.
+- Keep the reference images focused on the features you want to transfer.
+- Verify every "from image2" and "from image3" source in the preview.
+- Look for Keep / Preserve clauses covering the parts you want unchanged.
+- Avoid requesting two different whole-scene changes at the same time.
+- For complex editing, save a good intermediate output and use it as the next
+  image1 in a second pass, rather than making every change in one step.
+- When comparing two prompt strategies, keep the model/workflow settings as
+  consistent as possible so that differences are easier to interpret.
+
+More text does not always mean more control. The goal is one coherent editing
+instruction with clear sources, targets, and preservation conditions.
+
+
+25. UNDERSTANDING PRESET LABELS AND DESCRIPTIONS
+------------------------------------------------------------
+
+In KO mode, a card displays its English instruction and a Korean explanation.
+The Korean line is designed to describe the intended edit clearly; it is not
+necessarily a word-for-word translation of the English sentence.
+
+In EN mode, the same card displays only the English instruction. This avoids
+showing a Korean description under thousands of English-language presets.
+
+To understand a long or technical English preset:
+
+1) Read its action verb: Change, Apply, Replace, Match, Refine, or Remove.
+2) Identify which image supplies the feature and which image receives it.
+3) Check for "only," which narrows the edit to a specific attribute.
+4) Read any Keep / Preserve clause to see what should remain unchanged.
+5) Select the item, then read its contribution in the final preview.
+6) Deselect it if the resulting instruction does not match your intent.
+
+Example:
+  "Apply only the hair color from image2 to image1"
+  changes a hair-color attribute, rather than necessarily copying the entire
+  hairstyle from the reference.
+
+Long English chips in the selected list may be visually truncated to maintain
+a neat layout. Inspect the full text via the tooltip or preview instead of
+judging the instruction only by the clipped label.
+
+
+26. BACKUP STRATEGY FOR REGULAR USE
+------------------------------------------------------------
+
+A good backup routine avoids losing your presets or the bilingual app.
+
+1) Keep the original downloaded ZIP untouched.
+2) Unzip a working copy into a separate folder.
+3) Test custom presets in the browser before embedding them.
+4) When Permanent Save succeeds, record the actual saved filename and folder.
+5) Keep older known-good HTML copies with dates or version suffixes.
+6) Reopen a saved file to confirm it contains your expected custom entries.
+7) If a later modification breaks the app, restore an earlier working copy.
+
+Example backup names:
+  Ultra_qwen_prompt_selecter_v4_original.zip
+  Ultra_qwen_prompt_selecter_v4_custom_2026-11-07.html
+  Ultra_qwen_prompt_selecter_v4_custom_backup.html
+
+Do not assume that localStorage replaces file backups. Browser storage can be
+cleared or separated by security context. And once a custom entry has been
+embedded into the HTML itself, deleting it from the manager will not remove
+the embedded copy from that saved HTML file.
+
+
+27. TROUBLESHOOTING: FIRST THINGS TO CHECK
+------------------------------------------------------------
+
+PROBLEM: No presets appear.
+  - Clear the search box.
+  - Switch to All or another relevant category.
+  - Verify the image count is correct.
+  - Check whether SFW or NSFW is enabled.
+
+PROBLEM: The expected adult preset does not appear.
+  - Enable NSFW and select the appropriate category.
+  - Confirm there are entries for your image-count mode.
+  - Try another keyword; adult presets have their own wording.
+
+PROBLEM: A previously selected instruction seems missing from the cards.
+  - You may have switched SFW/NSFW while keeping an existing selection.
+  - Inspect the Selected Instructions list and the actual preview.
+  - Remove an unwanted selected instruction using its X control.
+
+PROBLEM: Custom presets disappeared after reopening the app.
+  - Quick Entry is not a saved custom preset.
+  - Confirm you added the item using Custom Preset Manager.
+  - Check whether browser storage was cleared or whether you changed browser.
+  - If you embedded it permanently, open the newly saved HTML copy.
+
+PROBLEM: Permanent Save refuses a source file.
+  - Select the bilingual HTML included in this edition's ZIP. The app checks
+    for its language-switch support before embedding presets.
+  - Make sure you have a readable and writable copy where needed.
+
+PROBLEM: The Qwen result changes unintended features.
+  - Remove unrelated presets or contradictory preservation statements.
+  - Use more specific "only" presets and explicit Keep / Preserve conditions.
+  - Split the edit into separate passes for face, outfit, pose, and background.
+
+PROBLEM: image2 and image3 appear to be reversed.
+  - Compare the generated prompt with the actual model input order.
+  - Make sure a pose reference was not supplied in an outfit reference slot.
+
+PROBLEM: Copy or file saving does not work.
+  - Check browser permissions and whether a file-download prompt was blocked.
+  - Try Chrome or Edge outside of restrictive private/local-file conditions.
+  - Copy the preview text manually if the clipboard is unavailable.
+
+PROBLEM: The UI still displays Korean after choosing EN.
+  - Check that you opened the bilingual v4 HTML, not an older copy.
+  - Use the KO/EN switch in the app header.
+  - Refresh the updated file and close obsolete tabs showing older versions.
+
+PROBLEM: Korean prompt translation cannot be retrieved.
+  - Check connectivity and third-party translation availability.
+  - The source English prompt remains usable without translation.
+
+
+28. OPTIONAL: EDITING THE HTML SOURCE DIRECTLY
+------------------------------------------------------------
+
+Advanced users can add presets directly to the HTML source using a UTF-8 text
+editor. This requires care with JavaScript syntax, quoting, and punctuation.
+
+Find the built-in arrays named:
+  EDITS_1 — one-image presets
+  EDITS_2 — two-image presets
+  EDITS_3 — three-image presets
+
+Illustrative entry inside the one-image array:
+  {cat:'face', en:'Change the hair color in image1 to warm brown',
+   ko:'Change the hair color in image1 to warm brown'},
+
+An entry intended for the adult filter uses a normal category plus a marker:
+  {cat:'detail', nsfw:true, en:'...', ko:'...'},
+
+Do NOT create a separate category called cat:'nsfw'.
+
+Field meanings:
+  cat       = internal category ID, such as face, outfit, pose, bg, detail.
+  nsfw:true = place an adult-oriented entry in the NSFW filter.
+  en        = English instruction used for generation.
+  ko        = display explanation for KO mode; may use the English text if
+              no Korean description is supplied.
+
+Be careful with apostrophes, commas, backslashes, newlines, and text resembling
+HTML closing tags. Invalid JavaScript syntax can prevent the entire app from
+loading. The Custom Preset Manager is safer for most people.
+
+After any manual source edit, reopen the HTML and verify that the new entry
+appears, the preview runs, and both KO and EN can be selected.
+
+
+29. WHAT CHANGED IN VERSION 4
+------------------------------------------------------------
+
+Version 4 emphasizes direct editing instructions with explicit image roles
+instead of loosely connected keywords.
+
+Key changes compared with earlier approaches:
+
+- image1 is the final editing target in multi-image workflows.
+- image2 and image3 are named directly when providing reference features.
+- Face, hairstyle, clothing, pose, lighting, and scene edits use verbs that
+  reflect what should actually happen.
+- Narrow changes can use "only," while required preserved features can use
+  Keep or Preserve. Contradictory preservation requests should be avoided.
+- Compatible sub-edits, such as background location plus weather, can coexist.
+- Mutually exclusive edits, such as two full outfit replacements, may be
+  reduced by the internal conflict-resolution rules.
+- Adult presets are filtered using nsfw:true within ordinary categories.
+- Custom entries can be stored in the browser or embedded into the HTML.
+- In this bilingual edition, KO keeps the original Korean explanation lines
+  while EN displays the English instructions without Korean descriptions.
+
+Verified built-in library size for THIS ZIP:
+  1-image presets: 2,172 (1,502 SFW + 670 NSFW)
+  2-image presets: 1,652 (1,056 SFW + 596 NSFW)
+  3-image presets: 1,103 (504 SFW + 599 NSFW)
+  TOTAL: 4,927 built-in presets
+
+The displayed count can increase after you add custom entries. Counts from
+other historical v4 drafts are not necessarily valid for this ZIP.
+
+
+30. FINAL PRACTICAL ADVICE FOR BEGINNERS
+------------------------------------------------------------
+
+1) Start with the right number of image inputs.
+2) Choose one clear editing goal.
+3) Find a closely matching preset in the correct category.
+4) Add a second compatible preset only if necessary.
+5) Read the preview to confirm target, source, and preserved features.
+6) Run Qwen with the images in the exact specified order.
+7) Keep the prompt that gives the best result before adding more complexity.
+
+The simplest dependable mental model is:
+  image1 = what I am editing.
+  image2/image3 = where selected reference features come from.
+  Preview = the real English instruction that my editing model receives.
+
+
+31. FIVE-MINUTE WALKTHROUGH FOR NEW USERS
+------------------------------------------------------------
+
+You do not need to learn every advanced feature before using the app.
+
+1) Extract the ZIP and launch the HTML in Chrome or Edge.
+2) Click EN so that menu labels and help are presented in English.
+3) Choose 1 image for a first experiment.
+4) Search for "hair color" or open Face & Hair.
+5) Pick a preset changing only the hair color.
+6) Look at Selected Instructions and the English prompt preview.
+7) Confirm the requested color and all preservation conditions.
+8) Copy the prompt into Qwen Image Edit with your original photo as image1.
+9) Run the edit and inspect what changed.
+10) Remove or replace the preset if the result is not as intended.
+
+Next experiments:
+  - Two-image test: transfer clothing from image2 to image1.
+  - Three-image test: combine clothing from image2 with a pose from image3.
+
+Do not begin by changing the face, outfit, pose, background, lighting, and
+style simultaneously. Multi-step editing is often easier to control.
+
+
+32. HOW VERSION 4 COMPOSES A PROMPT
+------------------------------------------------------------
+
+Each preset contains an English instruction already written for an editing
+task. The app does more than concatenate the translated names of selected
+categories. Its prompt builder processes compatible and incompatible edits.
+
+The general flow is:
+
+1) Determine the image-count mode and the selected presets.
+2) Identify which image is edited and which references provide attributes.
+3) Resolve certain conflicts between instructions for the same attribute.
+4) Keep compatible, narrower edits where possible.
+5) Avoid preservation clauses that directly contradict requested changes.
+6) Where appropriate, add or retain preservation guidance.
+7) Compose the resulting English editing instructions.
+8) Use the same result for preview, clipboard Copy, and TXT export.
+
+Compatible example:
+  Replace the background with a winter forest.
+  Add gentle snowfall.
+
+These can often coexist because one defines a location and the other adds
+a weather effect.
+
+Likely conflict:
+  Change the hair color to black.
+  Change the hair color to blonde.
+
+Both target the same attribute with different values. A later selection may
+take priority; check which instruction appears in the final prompt.
+
+Changing KO to EN never switches to a different prompt-building engine.
+
+
+33. READING A PRESET AS A COMPLETE EDITING PLAN
+------------------------------------------------------------
+
+A good preset communicates at least some of the following:
+
+  TARGET: What is being edited in image1?
+  SOURCE: Which reference (image2 or image3) supplies the feature?
+  SCOPE: Is this a complete replacement or a narrowly targeted adjustment?
+  PRESERVATION: What must remain consistent with image1?
+
+Example 1:
+  Apply only the hair color from image2 to image1.
+
+Interpretation:
+  - image1 remains the edited image.
+  - image2 supplies color, not necessarily haircut or identity.
+  - The word "only" limits the intended transfer.
+
+Example 2:
+  Apply the face from image2 and the hairstyle from image3 to image1.
+  Preserve the pose, clothing, and background in image1.
+
+Interpretation:
+  - Face and hairstyle come from different references.
+  - The final subject remains in the scene from image1.
+  - Pose, clothing, and background are supposed to stay as before.
+
+Do not assume that a short visible chip contains the complete instruction.
+Read the preview and, when available, the full card tooltip.
+
+
+34. PREPARING THE ORIGINAL IMAGE (IMAGE1)
+------------------------------------------------------------
+
+Image1 determines the foundation of the output. A good original makes specific
+edits easier for the model to perform.
+
+For face editing:
+  Use an image where the original face is reasonably clear and large enough.
+
+For clothing editing:
+  Keep the body and clothing area visible. Cropped garments may be harder to
+  replace accurately or match to a detailed reference.
+
+For pose editing:
+  A visible body outline and unoccluded limbs help the model interpret the
+  person whose pose you want to change.
+
+For background editing:
+  A clear subject/background boundary can make it easier to change the
+  surroundings while retaining the subject.
+
+For hands or small objects:
+  Higher resolution and clear subject boundaries generally help correction.
+
+If a crucial part of image1 is heavily obscured or missing, a good reference
+alone may not recover it. Consider repairing the affected area in a separate
+pass before applying another major visual change.
+
+
+35. PREPARING REFERENCE IMAGES (IMAGE2 AND IMAGE3)
+------------------------------------------------------------
+
+References work best when the feature you want is obvious.
+
+FACE REFERENCE
+  - Choose a sufficiently clear and unobstructed face.
+  - Very small faces give the model less usable detail.
+  - A very different camera angle can complicate identity transfer.
+
+CLOTHING REFERENCE
+  - Show enough of the full outfit to establish design and fit.
+  - For fabric or pattern transfer, make sure that detail is visible.
+  - A complicated reference pose may influence clothing transfer indirectly.
+
+POSE REFERENCE
+  - Show the body direction, limb positions, and intended gesture clearly.
+  - Extreme differences from image1's camera perspective can cause an
+    unintended composition change.
+  - Small hand gestures benefit from detail and resolution.
+
+BACKGROUND REFERENCE
+  - Decide whether you want architecture, location, colors, or atmosphere.
+  - A clean reference may help when replacing the whole background.
+  - Choose a background-specific preset if you do not also want lighting or
+    style from the reference to be copied.
+
+LIGHTING REFERENCE
+  - Prefer an image with a clear light direction, strength, or color.
+  - For simple brightness adjustments, avoid presets that also transfer the
+    entire look or scene unless that is the desired effect.
+
+In 3-image mode, write down the intended role of image2 and image3 before
+choosing presets. It is easy to reverse sources when both references are busy.
+
+
+36. COMBINING MULTIPLE PRESETS INTENTIONALLY
+------------------------------------------------------------
+
+Several compatible presets can provide more control than one broad command,
+but adding everything at once is usually counterproductive.
+
+Often useful combinations:
+  - Full outfit change + a specific garment pattern.
+  - New background location + snowfall or rain.
+  - Body pose + direction of gaze.
+  - Face transfer + hairstyle transfer from a different reference.
+  - Style treatment + fine detail cleanup.
+  - Lighting change + shadow refinement.
+
+Combinations that require special care:
+  - Face replacement + preserve the entire original face identity.
+  - Full outfit replacement + keep the original complete outfit.
+  - Whole-body pose transfer + preserve the full original pose.
+  - Two competing background locations.
+  - Two different final hair colors.
+  - Conflicting camera views or framing requests.
+
+Suggested starting points:
+  - Simple edit: one or two presets.
+  - Two references: one combined preset, or a small group of related edits.
+  - Complex work: test a few instructions first, then refine in later passes.
+
+The app can resolve some conflicts automatically, but it cannot judge every
+semantic overlap or quality tradeoff. The final prompt still needs your review.
+
+
+37. INTERPRETING THE STATUS AND WARNING AREA
+------------------------------------------------------------
+
+The preview status provides counts of the selected and effective instructions.
+
+Example:
+  Selected 3 · Applied 3 · No conflicts
+
+All three selected instructions currently contribute to the output.
+
+Example:
+  Selected 3 · Applied 2 · Resolved 1 conflict(s)
+
+Three items were selected, but one is excluded by the builder's conflict
+handling. The warning can help identify recently excluded instructions.
+
+Other reasons for an advisory warning include:
+  - References that need checking against the current image-role arrangement.
+  - A large number of effective instructions being applied at once.
+  - Simultaneous edits across many major visual domains.
+
+These warnings are aids, not absolute predictions of model quality. A clean
+status does not prove the prompt is visually sensible. Conversely, a warning
+does not necessarily mean the whole workflow will fail.
+
+Always compare the preview with the real image layout before copying.
+
+
+38. MIXING GENERAL AND ADULT-ORIENTED SELECTIONS
+------------------------------------------------------------
+
+SFW and NSFW are browsing filters, not two separate prompt engines.
+A selected instruction is not automatically deleted when you switch filters.
+
+Example workflow:
+
+1) In SFW mode, choose a general face-preservation instruction.
+2) Switch to NSFW mode.
+3) Choose an adult-oriented clothing or pose instruction.
+4) Review Selected Instructions and the preview to see both contributions.
+
+Because the card list only shows the current filter, a previously selected
+preset may no longer appear among the visible cards. Do not assume it has
+been removed; inspect the selected list and remove it manually if necessary.
+
+The interface does not provide a separate, guaranteed visual badge for every
+selected preset that is hidden by filtering. The selection list and preview
+are the dependable places to inspect what remains active.
+
+Use adult-oriented editing instructions only with adult subjects and in
+compliance with the policies of the model or service you choose.
+
+
+39. ADULT-PRESET WORKFLOWS WITH ONE IMAGE
+------------------------------------------------------------
+
+One-image NSFW mode edits an adult subject or adult-oriented scene already
+present in image1. The same image1 target convention still applies.
+
+Common categories of changes include:
+  - Clothing presentation and coverage.
+  - Adult pose or general body presentation.
+  - Bedroom, bath, sauna, or studio settings.
+  - Warm, moody, or dramatic lighting.
+  - Skin texture, anatomy cleanup, or other details.
+
+Practical guidance:
+  - Keep clothing, pose, and scene edits manageable rather than stacking many
+    large changes in a single pass.
+  - For fine detail, use a source image where the relevant area is visible.
+  - A scene-wide change and a small detail correction may be more reliable as
+    two separate passes.
+
+The app's NSFW switch filters presets. Whether an edit succeeds depends on the
+chosen model and service; the switch does not bypass their restrictions.
+
+
+40. ADULT-PRESET WORKFLOWS WITH TWO IMAGES
+------------------------------------------------------------
+
+In two-image NSFW mode:
+  image1 = adult subject or scene being edited.
+  image2 = reference for clothing, pose, appearance, interaction layout,
+           background, lighting, or another explicitly named attribute.
+
+An interaction preset may treat two adults already present in image1 as the
+editing targets and use image2 as a reference for their relative position.
+Another preset may use image2 only for a garment's design or material.
+
+Before using the preset, answer:
+  - Are you transferring the reference person's identity or only a pose?
+  - Is the reference used for clothing, scene layout, or lighting?
+  - Does the prompt specify which people in image1 are being changed?
+
+Read the actual English preview to distinguish these cases. Do not infer
+that image2 always means "second person"; it is simply the reference image.
+
+
+41. ADULT-PRESET WORKFLOWS WITH THREE IMAGES
+------------------------------------------------------------
+
+Three-image NSFW mode supports editing adult subjects with two distinct
+references. The same input-role principle applies as in general mode.
+
+  image1 = final editing target.
+  image2 = first adult subject or visual-reference source.
+  image3 = second subject, pose, composition, or other reference source.
+
+Possible preset structures include:
+
+A) Transfer styling from image2 and pose information from image3 to image1.
+
+B) Use a person from image2 in the composition of image1, with image3
+   supplying an arrangement or pose reference.
+
+C) Use people or visual attributes from image2 and image3 in a final scene
+   composed around image1, when the chosen preset explicitly requests it.
+
+The critical rule is that image2 and image3 supply information to the final
+result in image1. They are not necessarily being edited as separate outputs.
+
+Group compositions, occlusion, and multiple faces increase difficulty. Confirm
+that the prompt names the intended people and preserves their identities when
+needed. Separate a complex edit into stages if a single pass misplaces people
+or mixes source features.
+
+
+42. QUICK ENTRY VS CUSTOM PRESET MANAGER
+------------------------------------------------------------
+
+QUICK ENTRY
+  Best for trying a temporary sentence one time.
+  - Adds the instruction to the current selection.
+  - Appears in preview, Copy, and TXT export.
+  - Is not automatically written into the reusable custom-preset list.
+  - Is not embedded during Permanent Save.
+
+CUSTOM PRESET MANAGER
+  Best for instructions you want to reuse later.
+  - Saves image count, category, English text, optional Korean explanation,
+    and the NSFW flag when applicable.
+  - Stores presets in the browser's localStorage.
+  - Allows searching, editing, and deleting saved entries.
+  - Can permanently embed the saved entries into a selected HTML file.
+
+Example decision:
+  "Try a tiny lighting correction once" -> Quick Entry.
+  "Reuse a three-image outfit-plus-pose transfer regularly" -> create a
+  custom preset in the manager.
+
+If a quick instruction proves useful, manually reenter it in Custom Preset
+Manager with a meaningful image count and category.
+
+
+43. VERIFY IMAGE NUMBERS IN YOUR CUSTOM TEXT
+------------------------------------------------------------
+
+The app supports one-, two-, and three-image modes, and image1 is the final
+editing target. Your custom prompt should follow these conventions:
+
+ONE-IMAGE CUSTOM PRESET
+  Use image1 (or clearly refer to the original subject). Do not describe
+  image2 or image3 unless those images will actually be present.
+
+TWO-IMAGE CUSTOM PRESET
+  Use image1 for the editing target and image2 for the reference. Do not
+  mention image3 if your workflow will supply only two input images.
+
+THREE-IMAGE CUSTOM PRESET
+  image1 = target, image2 and image3 = available references. image4 is not
+  part of this application's three-image workflow.
+
+Good example:
+  Apply the face from image2 to the person in image1.
+
+Incomplete example:
+  Apply the face from image2.
+
+The second example leaves the target unspecified.
+
+IMPORTANT LIMITATION OF THIS RELEASE:
+  The current Custom Preset Manager validates the image count field, category,
+  and required English text. It does NOT directly reject every out-of-range
+  image-number token written *inside* a custom English instruction.
+  In particular, do not rely on the Add Preset button to detect image4 or
+  a missing image1 reference. Check your text manually before saving and
+  before running a model. This manual describes the behavior of this ZIP,
+  rather than claiming a validation guard that is not implemented here.
+
+The main prompt generator may normalize some instruction wording, but it is
+not a substitute for checking custom reference-image numbers yourself.
+
+
+44. FIVE RULES FOR CLEAR CUSTOM PROMPTS
+------------------------------------------------------------
+
+RULE 1 — NAME THE TARGET DIRECTLY
+
+Better:
+  Change the hair color in image1 to warm brown.
+
+Vague:
+  Change the subject.
+
+RULE 2 — PUT THE REFERENCE SOURCE NEAR THE FEATURE
+
+Better:
+  Apply the outfit from image2 to the person in image1.
+
+Vague:
+  Apply the outfit while preserving image1 from image2.
+
+RULE 3 — SEPARATE TWO REFERENCE ROLES
+
+Better:
+  Apply the outfit from image2 to image1.
+  Set the pose in image1 to match the pose from image3.
+
+Vague:
+  Combine image2 and image3.
+
+RULE 4 — DISTINGUISH COMPLETE REPLACEMENT FROM PARTIAL CHANGE
+
+  Replace / Change the entire ... = broad substitution.
+  Apply only / Match only ...    = limited feature transfer.
+  Refine / Repair / Clean up     = correction or improvement.
+  Remove                        = subtraction.
+  Add / Place                   = insertion.
+
+RULE 5 — DO NOT PRESERVE WHAT YOU ARE ASKING TO REPLACE
+
+Contradictory:
+  Replace the clothing in image1. Keep the clothing unchanged.
+
+Clearer:
+  Replace the clothing in image1. Keep the face, pose, background, and
+  lighting unchanged.
+
+Write natural English commands. You do not need unusually formal wording or
+long lists of generic quality adjectives to make a useful editing preset.
+
+
+45. WRITING A KOREAN DESCRIPTION FOR A CUSTOM PRESET
+------------------------------------------------------------
+
+This section matters when your preset will also be used in the KO interface.
+
+The Korean Description field is a display explanation, not the English prompt
+that Qwen receives. A useful explanation should convey the actual operation,
+including which image supplies the feature and what is preserved.
+
+For example, a good description for a two-image clothing-pattern transfer
+would specify that only the pattern from image2 is applied to the clothing
+in image1. A description such as "Apply pattern" is much less informative.
+
+A useful three-image explanation identifies both references:
+  image2 = facial source, image3 = hairstyle source, image1 = edited target.
+
+Try to include these concepts where relevant:
+  - Which part of image1 changes.
+  - Which image provides the reference.
+  - Whether this is a full replacement or a small adjustment.
+  - Which important features are supposed to stay unchanged.
+
+In EN mode, the Korean Description field is intentionally hidden. New
+English-only presets use the English instruction as the Korean fallback,
+and KO mode suppresses the duplicate display line when both are identical.
+
+When you edit an existing bilingual custom preset in EN mode, a distinct
+Korean description is preserved unchanged. It is not automatically translated
+to reflect your new English wording. Switch to KO mode if both descriptions
+need to be updated together.
+
+
+46. A SAFE PERMANENT-SAVE ROUTINE
+------------------------------------------------------------
+
+Treat Permanent Save as a file modification, not as a normal clipboard action.
+
+Recommended sequence:
+
+1) Save an untouched copy of the original bilingual ZIP.
+2) Add custom presets to the browser-managed list.
+3) Verify their category and image-count assignments.
+4) Inspect the actual English preview for each new preset.
+5) Verify any image1/image2/image3 references manually.
+6) Try at least one realistic model run before embedding a complicated preset.
+7) Click Permanently Save to HTML in the manager.
+8) Select the bilingual HTML file from this package.
+9) Confirm where the browser saved or downloaded the modified file.
+10) Reopen that exact file and check both KO and EN modes.
+11) Confirm the embedded presets appear and generate the expected prompt.
+
+Depending on your browser, the operation may overwrite a chosen file, offer
+Save As, or produce a download. A successful dialog alone does not tell you
+which copy of the app you have reopened afterward.
+
+The bilingual safeguard prevents embedding presets into an older HTML file
+that lacks the current language-switch markers. Do not work around this by
+removing the guard; use an updated source file instead.
+
+
+47. KOREAN TRANSLATION IS AN AID, NOT THE SOURCE PROMPT
+------------------------------------------------------------
+
+In KO mode, the Translate control can help explain the English preview in
+Korean. The translated result does not replace the English source instruction.
+
+Automated translation may handle specialized editing terms imperfectly:
+  identity    = the subject's recognizable visual identity.
+  framing     = how the subject and scene fit inside the image.
+  preserve    = maintain a specified aspect of the original.
+  transfer    = bring an attribute from a reference into the target.
+  match       = make one property resemble a reference property.
+  subject     = the person or object being discussed.
+
+If a translation feels unnatural, compare the English source directly with
+the selected presets. The wording of a translated explanation alone does not
+prove the source editing command is incorrect.
+
+EN mode hides Translate because the preview already appears in English.
+This has no effect on Copy, TXT, or the instruction sent to your model.
+
+
+48. WHEN QWEN DOES NOT FOLLOW THE REQUEST
+------------------------------------------------------------
+
+Work through the following checks in order:
+
+1) Verify that the correct number of images reached the workflow.
+2) Check the actual order: image1 target, then the intended references.
+3) Read the final prompt for reversed image2/image3 sources.
+4) Reduce the number of simultaneously selected presets.
+5) Try the single most important edit on its own.
+6) Review the status area for resolved conflicts or reference warnings.
+7) Check that the desired feature is clearly visible in the reference.
+8) Compare camera angle and body orientation between target and reference.
+9) If face and clothing transfers compete, test them in separate passes.
+10) Use a specific partial-change preset instead of a broad replacement.
+11) Try another seed if the model's output is inconsistent.
+
+IF THE MODEL CHANGES TOO LITTLE:
+  - Consider a more direct replacement instruction.
+  - Check whether the chosen preset requests only a small adjustment.
+  - Remove contradictory custom Keep / Preserve clauses.
+
+IF THE MODEL CHANGES TOO MUCH:
+  - Choose a preset that uses "only" or an explicit limited transfer.
+  - Preserve identity, pose, framing, background, or lighting as appropriate.
+  - Separate a large change from the smaller corrections that follow it.
+
+IF THE MODEL MIXES THE TWO REFERENCES:
+  - Use a preset that explicitly mentions "from image2" and "from image3".
+  - Make the intended role of each reference visually obvious.
+  - Use staged edits if one pass cannot maintain the distinctions.
+
+A correct prompt can still produce imperfect results because of model,
+workflow, image quality, resolution, seed, or available model capabilities.
+
+
+49. PRACTICAL COMBINATIONS BY CATEGORY
+------------------------------------------------------------
+
+FACE & HAIR
+  - Transfer the face while keeping hairstyle unchanged.
+  - Apply a hairstyle while keeping original hair color.
+  - Change eye color while preserving the eye shape.
+  - Apply makeup technique without copying unrelated reference details.
+
+CLOTHING
+  - Replace the outfit but preserve footwear.
+  - Replace only the top while retaining the bottom.
+  - Match a silhouette while keeping the original material.
+  - Change a pattern while preserving the garment's dominant color.
+
+POSE
+  - Transfer an overall pose while retaining face and clothing.
+  - Match an arm position without replacing the entire posture.
+  - Adjust gaze direction independently from body orientation.
+  - Change a hand position to fit an existing prop.
+
+BACKGROUND
+  - Replace the location and then add a weather effect.
+  - Keep the location but change the time of day.
+  - Clean up the scene while retaining its lighting atmosphere.
+  - Apply background architecture from image2 and lighting from image3.
+
+LIGHTING
+  - Match light direction while preserving the existing background.
+  - Adjust color temperature while refining facial exposure.
+  - Add rim light without completely changing the light setup.
+  - Use image2 for lighting direction and image3 for color mood.
+
+STYLE
+  - Change overall rendering style while preserving visual identity.
+  - Apply a film look without modifying framing.
+  - Apply a painterly treatment while retaining facial structure.
+  - Match color grading while keeping shapes and textures readable.
+
+DETAILS
+  - Repair hand anatomy while maintaining the intended gesture.
+  - Refine garment boundaries without redesigning the clothing.
+  - Remove an unwanted object and restore the nearby texture.
+  - Use image2 for a clean texture patch and image3 for lighting guidance.
+
+Choose presets according to the current image count; the combinations above
+illustrate compatible goals, not necessarily exact built-in preset names.
+
+
+50. USING A PHONE OR A SMALL BROWSER WINDOW
+------------------------------------------------------------
+
+The application is responsive, but a large preset library and long editing
+instructions are generally easier to browse on a desktop monitor.
+
+Suggestions for smaller screens:
+  - Use Search instead of scrolling through hundreds of presets.
+  - Narrow the category before looking for a detailed action.
+  - Read a selected instruction's full text if its chip is truncated.
+  - Keep the preview visible when finalizing the prompt.
+  - Use Copy to move the prompt to your model interface.
+  - Expect some categories and manager-table columns to scroll or wrap
+    inside their own area rather than forcing the whole page wider.
+
+On mobile, the browser may prompt for clipboard or download permissions.
+If an action is restricted, use the available fallback, or perform the
+permanent-file operation on a desktop browser where file access is easier.
+
+The KO/EN switch is part of the interface and can be used on small screens.
+Switching language should not change the selected English prompt text.
+
+
+51. BROWSER STORAGE, PRIVACY, AND LOCAL FILES
+------------------------------------------------------------
+
+Most prompt-building work happens locally in the browser. You do not upload
+an image to this HTML app merely to generate a text prompt.
+
+Browser-managed custom presets can be stored in localStorage. That is
+associated with the current browser context and can be lost if site data
+is cleared or a private session ends.
+
+Be mindful of these cases:
+  - Public/shared computers may retain custom text in browser storage.
+  - A locally opened HTML file may have different storage behavior depending
+    on browser policy or where the file is opened.
+  - Changing browser profile or computer does not necessarily copy presets.
+  - A permanently saved HTML contains embedded custom text in readable source.
+  - Sharing a saved HTML can share those embedded instructions as well.
+  - Optional Korean prompt translation and online font downloads may make
+    network requests. Basic prompt generation does not depend on them.
+
+The KO/EN preference is also stored in the browser where storage is available.
+It is a display preference, not a language setting for your Qwen model.
+
+
+52. CHECKS BEFORE SHARING OR REDISTRIBUTING
+------------------------------------------------------------
+
+Before sending the package to someone else:
+
+- Verify the HTML file is the updated bilingual v4 edition.
+- Make sure the KO/EN switch appears and responds.
+- Confirm all three supplied documents are present: the HTML app, the
+  Korean manual, and this complete English manual.
+- Open the HTML and test at least one preset in each image-count mode.
+- Check whether any personal presets were permanently embedded in the HTML.
+- Remember that browser-only custom entries are not automatically packed
+  into a ZIP when you distribute an untouched HTML file.
+- Check the filename and reopen the actual copy you plan to distribute.
+- Avoid sharing sensitive custom instructions unintentionally.
+
+If you create a new ZIP yourself, make sure the Korean filename is preserved
+in a Unicode-compatible archive so it is readable after extraction.
+
+
+53. FREQUENTLY ASKED QUESTIONS
+------------------------------------------------------------
+
+Q. Is image2 always a face reference and image3 always a pose reference?
+A. No. The selected preset defines what each reference supplies. Review
+   "from image2" and "from image3" in the English prompt.
+
+Q. Do I need ComfyUI installed to use this app?
+A. No. The HTML app builds text prompts in a browser. You need a separate
+   compatible model or workflow to generate edited images.
+
+Q. Do I get a better result if I select more presets?
+A. Not necessarily. Too many competing edits can weaken the result. Begin
+   with a small number of clear instructions.
+
+Q. Does switching KO/EN translate or rewrite the Qwen prompt?
+A. No. It changes labels, dialogs, and preset-description visibility.
+   The generated English instructions remain the same.
+
+Q. Why is there no Korean line below each card in EN mode?
+A. EN mode intentionally hides the Korean explanation. The English command
+   is both the visible preset text and the source instruction.
+
+Q. Can I search using Korean while EN is selected?
+A. Yes. The search continues to match both English and Korean preset data.
+
+Q. Why does the long selected instruction end with an ellipsis?
+A. This is a display limit used to keep the layout readable. The complete
+   instruction is still available through its tooltip and final preview.
+
+Q. Does turning NSFW off delete any previously selected NSFW preset?
+A. No. Switching filters does not automatically remove selections. Review
+   the selected chips and preview to see what is still active.
+
+Q. What happens if I click the same preset twice?
+A. The first click selects it. Clicking that same selected card again
+   generally removes it from the working selection.
+
+Q. What happens when I pick a search result for a different image count?
+A. The app switches image-count mode. If existing selections would be
+   cleared, it can ask for confirmation. Check the new input-image count.
+
+Q. Can I write "image4" in a custom preset?
+A. You should not. This app has at most three input-image modes. The current
+   custom manager does not fully validate every numbered token inside the
+   English text, so check custom references yourself before saving.
+
+Q. Are custom presets available on another browser or computer?
+A. Browser-only entries may not transfer automatically. Embed them into
+   a bilingual HTML file using Permanent Save and copy that file.
+
+Q. Why was the Korean description not updated after I edited the English
+   instruction in EN mode?
+A. This is deliberate. Existing distinct Korean explanations are preserved
+   rather than automatically translated. Switch to KO mode to update them.
+
+Q. Why does Permanent Save ask me to choose an HTML file?
+A. The app reads the source of the file you choose and embeds your stored
+   custom presets in that file's preset arrays. Always choose the bilingual
+   version from this package and keep a backup.
+
+Q. Can I undo a permanent HTML save with the Reset button?
+A. No. Resetting browser presets does not revert files already modified.
+   Restore a backup or edit the source carefully.
+
+Q. My Qwen result ignores an instruction. Is the app broken?
+A. Not automatically. Image quality, model behavior, incompatible edits,
+   workflow settings, and reference clarity can all affect results.
+
+Q. Can the app guarantee that adult-oriented prompts will work?
+A. No. The app only prepares text; individual models and services determine
+   which requests can be processed and what images they produce.
+
+
+54. RECOMMENDED FINAL CHECKLIST
+------------------------------------------------------------
+
+BEFORE COPYING OR EXPORTING A PROMPT:
+
+[ ] The app's image count matches the actual Qwen workflow inputs.
+[ ] image1 is the original image being edited.
+[ ] image2/image3 supply the features specified in the selected presets.
+[ ] The chosen SFW/NSFW filter is appropriate for the intended content.
+[ ] Previously selected items from the other filter have been reviewed.
+[ ] The selected list does not contain unnecessary or conflicting requests.
+[ ] The status area has no unreviewed reference or conflict warning.
+[ ] The final preview uses the intended image numbers.
+[ ] The requested change is not accidentally also marked "unchanged."
+[ ] The prompt is short and coherent enough for the current editing goal.
+[ ] Important prompts have been copied or exported for later comparison.
+
+BEFORE ADDING OR EMBEDDING CUSTOM PRESETS:
+
+[ ] I selected the correct image count and category.
+[ ] The English text clearly identifies the editing target.
+[ ] Any reference source is assigned to image2/image3 correctly.
+[ ] My instruction does not refer to image4 or another nonexistent input.
+[ ] I checked image numbering manually instead of relying on automatic
+    validation that this release does not fully provide.
+[ ] The new text does not contradict its own preservation conditions.
+[ ] A distinct Korean description is accurate if KO users will need it.
+[ ] I tested the preset from the browser-managed list first.
+[ ] I backed up the original bilingual HTML/ZIP.
+[ ] I reopened the saved HTML and confirmed the custom entry and KO/EN switch.
+
+
+55. SIX PRINCIPLES TO REMEMBER
+------------------------------------------------------------
+
+FIRST: image1 is the final target image. Editing takes place there.
+
+SECOND: image2 and image3 supply reference features, and their meaning comes
+from the particular preset you select.
+
+THIRD: the English preview is the editing instruction used by Qwen Image Edit.
+The Korean descriptions in KO mode help a human choose presets, not the model.
+
+FOURTH: one or two well-chosen, compatible instructions may be more effective
+than a long collection of unrelated or conflicting edits.
+
+FIFTH: when combining difficult face, outfit, pose, background, and detail
+changes, consider breaking the work into separate editing passes.
+
+SIXTH: a correct prompt still depends on the model, source-image clarity,
+workflow compatibility, seed, and other runtime settings.
+
+The bilingual interface does not alter those principles. Whether you choose
+KO or EN, check the exact image1/image2/image3 references in the English
+preview before launching an edit.
+
+
+END OF ENGLISH USER MANUAL
+============================================================
