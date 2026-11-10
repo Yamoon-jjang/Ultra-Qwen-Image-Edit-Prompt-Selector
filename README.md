@@ -2,6 +2,8 @@
 
 **한국어 · English** | **4,927 editing presets** | **1–3 input images** | **No installation**
 
+[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+
 Qwen 이미지 편집을 위한 **프롬프트 선택·조합 도구**입니다. 미리 준비된 4,927개 프리셋에서 원하는 편집 명령을 선택하고, 1~3장 이미지의 역할을 지정하여 **바로 복사해 사용할 수 있는 영어 편집 프롬프트**를 만듭니다. 한국어/영어 UI를 전환할 수 있으며, 하나의 HTML 파일을 브라우저에서 열어 사용합니다.
 
 A standalone, browser-based **prompt builder for Qwen image editing**. Combine 4,927 ready-made editing presets, use clear `image1` / `image2` / `image3` references, and copy a structured English prompt into your image-editing workflow. Switch between Korean and English interfaces—no installation required.
@@ -130,6 +132,26 @@ For a more efficient end-to-end editing workflow, pair this prompt builder with 
 - **Presets are not model weights:** this repository does **not** bundle Qwen models, ComfyUI custom nodes, or image-generation software.
 - **Back up your HTML file** before using Permanent Save. Browser storage and saved HTML files are separate places for custom presets.
 - **NSFW filtering:** disabled by default; enable it only when the intended workflow and local rules permit the content.
+
+## 📄 라이선스 / License
+
+**한국어**
+
+[MIT License](LICENSE) — 누구나 무료로 사용 · 수정 · 재배포할 수 있으며, 저작권 표시는 유지해야 합니다.
+화면 글꼴(IBM Plex Mono · Noto Sans KR, SIL OFL 1.1)은 Google Fonts에서 온라인으로 불러오며 이 저장소에 포함되어 있지 않습니다. Qwen 모델과 ComfyUI 등 외부 프로그램은 각자의 라이선스를 따릅니다.
+
+- 만든 프롬프트와 그 프롬프트로 편집한 이미지의 사용 · 공유 책임은 사용자에게 있습니다.
+- 이 프로그램은 있는 그대로 제공되며, 사용으로 생긴 문제에 대해 제작자는 책임지지 않습니다.
+
+**English**
+
+Released under the [MIT License](LICENSE) — free to use, modify and redistribute, provided the copyright notice is kept.
+The UI fonts (IBM Plex Mono · Noto Sans KR, SIL OFL 1.1) are loaded online from Google Fonts and are not included in this repository. Qwen models, ComfyUI and other external software remain under their own licenses.
+
+- You are responsible for how you use and share the prompts you build and the images edited with them.
+- Provided "as is", without warranty of any kind; the author is not liable for any problems arising from its use.
+
+Copyright (c) 2026 야문 짱 (Yamoon-jjang)
 
 ---
 
