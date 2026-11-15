@@ -165,6 +165,8 @@ SELECTED INSTRUCTIONS
 PRESET SEARCH AND CATEGORY TABS
   Search by English or Korean keywords, then choose a category such as
   Face & Hair, Clothing, Pose, Background, Lighting, or Details.
+  By default, search only covers the current image count. While searching,
+  a "Show other image counts" button appears to widen it to 1, 2 and 3 images.
   The separate NSFW switch controls which adult/general presets are shown.
 
 PRESET CARDS
@@ -370,13 +372,26 @@ Useful English search terms:
   face, hair, blonde, outfit, dress, pose, background, lighting, makeup,
   hands, remove, restore, camera angle, shadows, detail, scene
 
-The search can display matching entries from all three image-count libraries
-within the currently selected SFW/NSFW filter. The result count includes a
-breakdown by image count, and each result card shows an image-count badge.
+By default, search results show only presets for the image count you have
+selected (1, 2 or 3 images). While a search is active, clicking the "Input
+Images" 1/2/3 buttons keeps your search text and shows results for that count.
 
-Be careful when choosing a result for a different image count. The app may
-ask for confirmation if your current selections would be cleared. After the
-image count changes, you must use the new number of input images in Qwen.
+To include the other image-count libraries, turn on "Show other image counts"
+next to the result count:
+  - The button appears only while a search is active, and it starts OFF.
+  - When ON, matching entries from all three image-count libraries are shown
+    (within the current SFW/NSFW filter), with a per-count breakdown.
+  - Results for your current image count are listed first.
+  - Each result card shows an image-count badge.
+  - Click the button again to return to current-count results only.
+
+If the current image count has no matches, the empty-result message reminds
+you that you can turn on "Show other image counts".
+
+Be careful when choosing a result for a different image count. If you have
+selected presets, the app asks for confirmation before clearing them; choose
+Cancel to keep everything as it was. After the image count changes, you must
+use the new number of input images in Qwen.
 
 If a search returns nothing:
   - Clear a very specific query and try a shorter keyword.
@@ -853,7 +868,7 @@ the embedded copy from that saved HTML file.
 ------------------------------------------------------------
 
 PROBLEM: No presets appear.
-  - Clear the search box.
+  - Clear the search box, or turn on "Show other image counts" while searching.
   - Switch to All or another relevant category.
   - Verify the image count is correct.
   - Check whether SFW or NSFW is enabled.
@@ -1688,8 +1703,10 @@ A. The first click selects it. Clicking that same selected card again
    generally removes it from the working selection.
 
 Q. What happens when I pick a search result for a different image count?
-A. The app switches image-count mode. If existing selections would be
-   cleared, it can ask for confirmation. Check the new input-image count.
+A. The app switches image-count mode. If you have selected presets, it asks
+   for confirmation first; Cancel keeps your current selections. Results for
+   other image counts appear only when "Show other image counts" is ON.
+   Check the new input-image count.
 
 Q. Can I write "image4" in a custom preset?
 A. You should not. This app has at most three input-image modes. The current

@@ -54,6 +54,10 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .search-meta{display:flex;align-items:center;justify-content:flex-start;gap:8px;flex-wrap:wrap;margin-bottom:8px;}
 .search-meta .search-count{margin-bottom:0;}
 .inline-count-switch{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:flex-start;padding-left:4px;}
+.search-all-toggle{display:none;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;border:1px dashed var(--border);background:transparent;color:var(--muted);font-size:12px;font-family:'Noto Sans KR',sans-serif;cursor:pointer;transition:all .2s;line-height:1.2;white-space:nowrap;}
+.search-all-toggle.is-visible{display:inline-flex;}
+.search-all-toggle:hover{border-color:var(--a3);color:var(--a3);}
+.search-all-toggle.active{border-style:solid;border-color:var(--a3);color:var(--a3);background:rgba(99,255,212,.10);}
 .inline-count-switch-divider{font-family:'Noto Sans KR',sans-serif;font-size:12px;color:var(--muted);letter-spacing:.04em;line-height:1;padding-right:4px;}
 .inline-count-switch-label{font-family:'Noto Sans KR',sans-serif;font-size:12px;color:var(--muted);letter-spacing:.04em;white-space:nowrap;}
 .img-count-switch-btn{padding:5px 12px;border-radius:999px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:12px;font-family:'Noto Sans KR',sans-serif;cursor:pointer;transition:all .2s;line-height:1.2;}
@@ -435,6 +439,7 @@ html[lang="en"] .custom-table td.custom-table-empty::before{display:none;}
       <button class="img-count-switch-btn" type="button" data-img-count="2">2개</button>
       <button class="img-count-switch-btn" type="button" data-img-count="3">3개</button>
     </div>
+    <button id="searchAllCountsBtn" class="search-all-toggle" type="button" aria-pressed="false"></button>
   </div>
   <div class="cat-tabs" id="catTabs"></div>
   <div class="edits-grid" id="editsGrid"></div>
@@ -5741,6 +5746,7 @@ const UI_MESSAGES_EN = Object.freeze({
   saved:'TXT saved.','copyButton':'📋 Copy','copiedButton':'✅ Copied!',
   alreadySelected:'That English instruction is already selected.',
   switchedCount:'Switched to {n}-image presets.',
+  switchCountConfirm:'Switch to {n}-image presets?\nYour {count} selected preset(s) will be cleared.',
   invalidCount:'Invalid image count.', chooseCategory:'Choose a category.',
   invalidCategory:'Choose a category available for this image count and SFW/NSFW setting.',
   enterEnglish:'Enter an English instruction.',
@@ -5909,6 +5915,8 @@ let selectedEdits = [];
 let activeCat = 'all';
 let searchQuery = '';
 let customSearchQuery = '';
+// 검색 결과 범위: false = 현재 이미지 수만(기본), true = 1·2·3개 전체(현재 이미지 수 우선)
+let searchAllCounts = false;
 let nsfwMode = false;
 function isNsfwPreset(item) {
   return Boolean(item && item.nsfw === true);
@@ -6044,6 +6052,23 @@ function normalizeSearchText(value) {
 }
 function onSearch() {
   searchQuery = normalizeSearchText(document.getElementById('searchInput')?.value || '');
+  renderEdits();
+}
+function renderSearchAllToggle() {
+  const btn = document.getElementById('searchAllCountsBtn');
+  if (!btn) return;
+  btn.classList.toggle('is-visible', Boolean(searchQuery));
+  btn.classList.toggle('active', searchAllCounts);
+  btn.setAttribute('aria-pressed', searchAllCounts ? 'true' : 'false');
+  btn.textContent = uiLanguage === 'en'
+    ? (searchAllCounts ? '✓ Showing other image counts' : 'Show other image counts')
+    : (searchAllCounts ? '✓ 다른 이미지 수도 보는 중' : '다른 이미지 수도 보기');
+  btn.title = uiLanguage === 'en'
+    ? 'Off: show only presets for the current image count. On: also show 1/2/3-image presets (current count first).'
+    : '끄면 현재 이미지 수 프리셋만, 켜면 1·2·3개 전체 프리셋을 보여줍니다(현재 이미지 수 우선).';
+}
+function toggleSearchAllCounts() {
+  searchAllCounts = !searchAllCounts;
   renderEdits();
 }
 function onCustomSearch() {
@@ -6273,7 +6298,12 @@ function getPresetDisplayPriority(item, displayCount) {
 function sortPresetDisplayPool(pool) {
   const categoryIndex = new Map(DISPLAY_CATEGORY_ORDER.map((cat, index) => [cat, index]));
   return pool.map((entry, index) => ({...entry, _displayIndex:index})).sort((a, b) => {
-    if (a.displayCount !== b.displayCount) return a.displayCount - b.displayCount;
+    if (a.displayCount !== b.displayCount) {
+      // 현재 이미지 수를 맨 앞에, 나머지는 1→2→3 순서
+      if (a.displayCount === imgCount) return -1;
+      if (b.displayCount === imgCount) return 1;
+      return a.displayCount - b.displayCount;
+    }
     const catA = categoryIndex.has(a.item?.cat) ? categoryIndex.get(a.item.cat) : 999;
     const catB = categoryIndex.has(b.item?.cat) ? categoryIndex.get(b.item.cat) : 999;
     if (catA !== catB) return catA - catB;
@@ -6286,7 +6316,8 @@ function renderEdits() {
   const grid = document.getElementById('editsGrid');
   grid.innerHTML = '';
   const searchMode = Boolean(searchQuery);
-  const pools = searchMode
+  const allCountsMode = searchMode && searchAllCounts;
+  const pools = allCountsMode
     ? [1, 2, 3].flatMap(count => editsForCount(count).map(item => ({ item, displayCount: count })))
     : currentEdits().map(item => ({ item, displayCount: imgCount }));
   const displayPool = sortPresetDisplayPool(pools);
@@ -6325,7 +6356,11 @@ function renderEdits() {
     grid.appendChild(div);
   });
   const countEl = document.getElementById('searchCount');
-  if (searchQuery) {
+  renderSearchAllToggle();
+  if (searchQuery && !allCountsMode) {
+    countEl.innerHTML = uiLanguage === 'en' ? `${imgCount}-image search results: <span>${visible}</span>` : `${imgCount}개 이미지 프리셋 검색 결과: <span>${visible}</span>개`;
+    if (visible === 0) grid.innerHTML = uiLanguage === 'en' ? `<div class="no-results">No matching ${imgCount}-image presets. Turn on “Show other image counts” to search 1, 2 and 3 images.</div>` : `<div class="no-results">${imgCount}개 이미지 프리셋에 검색 결과가 없습니다. ‘다른 이미지 수도 보기’를 켜면 1·2·3개 전체에서 찾습니다.</div>`;
+  } else if (searchQuery) {
     countEl.innerHTML = uiLanguage === 'en' ? `Search results across all image counts: <span>${visible}</span> <span class="search-breakdown">1 image ${visibleByCount[1]} · 2 images ${visibleByCount[2]} · 3 images ${visibleByCount[3]}</span>` : `전체 프리셋 검색 결과: <span>${visible}</span>개 <span class="search-breakdown">1개 ${visibleByCount[1]} · 2개 ${visibleByCount[2]} · 3개 ${visibleByCount[3]}</span>`;
     if (visible === 0) grid.innerHTML = uiLanguage === 'en' ? '<div class="no-results">No matching presets for 1, 2 or 3 images.</div>' : '<div class="no-results">1·2·3개 이미지 프리셋 전체에서 검색 결과가 없습니다</div>';
   } else {
@@ -6511,6 +6546,12 @@ function pushSelectedEditFromNormalized(normalized) {
 }
 function togglePresetFromSearchResult(e, displayCount, el) {
   if (displayCount !== imgCount) {
+    if (selectedEdits.length > 0) {
+      const ok = confirm(uiLanguage === 'en'
+        ? uiMessage('switchCountConfirm', {n: displayCount, count: selectedEdits.length})
+        : `${displayCount}개 이미지 프리셋으로 전환합니다.\n현재 선택한 ${selectedEdits.length}개 항목이 해제됩니다. 계속할까요?`);
+      if (!ok) return;
+    }
     setImgCount(displayCount, { preserveSearch: true });
     const normalized = normalizeEntryForCount(e, imgCount);
     const idx = selectedEdits.findIndex(s => entryKey(s) === entryKey(normalized));
@@ -8334,6 +8375,7 @@ function wireStaticEvents(){
   });
   document.getElementById('clearBtn')?.addEventListener('click', clearAll);
   document.getElementById('searchInput')?.addEventListener('input', onSearch);
+  document.getElementById('searchAllCountsBtn')?.addEventListener('click', toggleSearchAllCounts);
   document.getElementById('customSearchInput')?.addEventListener('input', onCustomSearch);
   document.getElementById('customSearchClearBtn')?.addEventListener('click', clearCustomSearch);
   document.getElementById('addCount')?.addEventListener('change', renderCustomCategoryOptions);
