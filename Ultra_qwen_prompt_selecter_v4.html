@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ultra Qwen Image Edit Prompt Selector v4</title>
+<title>Ultra Qwen Image Edit Prompt Selector v4.0.1</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%236c63ff%22/%3E%3Cpath d=%22M18 18h28v28H18z%22 fill=%22none%22 stroke=%22white%22 stroke-width=%224%22/%3E%3Cpath d=%22M24 39l7-8 5 5 4-4 6 7%22 fill=%22none%22 stroke=%22white%22 stroke-width=%223%22/%3E%3C/svg%3E">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -357,8 +357,8 @@ html[lang="en"] .custom-table td.custom-table-empty::before{display:none;}
 <div class="wrap">
 <div class="hdr">
   <div class="ultra-language-switch" role="group" aria-label="Interface language / 화면 언어" id="ultraLangSwitch"><button type="button" id="ultraLangKo" data-lang="ko" class="ultra-lang-choice is-active" aria-pressed="true" title="한국어 인터페이스">KO</button><button type="button" id="ultraLangEn" data-lang="en" class="ultra-lang-choice" aria-pressed="false" title="English interface">EN</button></div>
-  <div class="hdr-tag">Ultra Qwen Image Edit Prompt Selector v4</div>
-  <h1>이미지 편집 프롬프트 생성기 v4</h1>
+  <div class="hdr-tag">Ultra Qwen Image Edit Prompt Selector v4.0.1</div>
+  <h1>이미지 편집 프롬프트 생성기 v4.0.1</h1>
   <div class="hdr-model-support">Qwen-Image-Edit-2511 · Qwen-Image-2.1</div>
   <p>이미지 수 선택 → 단일 이미지는 대상을 직접 지칭하고, 2·3이미지는 image1/image2/image3 역할을 직접 지정 → Qwen Edit 프롬프트 생성</p>
 </div>
@@ -5635,7 +5635,7 @@ const EDITS_3 = [
 const ULTRA_QWEN_UI_LANGUAGE_KEY = 'ultra_qwen_prompt_selecter_ui_language_v4';
 let uiLanguage = 'ko';
 const UI_STATIC_TEXT_EN = Object.freeze({
-  "이미지 편집 프롬프트 생성기 v4": "Image Editing Prompt Builder v4",
+  "이미지 편집 프롬프트 생성기 v4.0.1": "Image Editing Prompt Builder v4.0.1",
   "이미지 수 선택 → 단일 이미지는 대상을 직접 지칭하고, 2·3이미지는 image1/image2/image3 역할을 직접 지정 → Qwen Edit 프롬프트 생성": "Choose the number of images, select editing instructions, and generate Qwen Image Edit prompts with explicit image roles.",
   "이미지 수 선택": "Choose Image Count",
   "1개": "1 image",
@@ -6061,11 +6061,11 @@ function renderSearchAllToggle() {
   btn.classList.toggle('active', searchAllCounts);
   btn.setAttribute('aria-pressed', searchAllCounts ? 'true' : 'false');
   btn.textContent = uiLanguage === 'en'
-    ? (searchAllCounts ? '✓ Showing other image counts' : 'Show other image counts')
-    : (searchAllCounts ? '✓ 다른 이미지 수도 보는 중' : '다른 이미지 수도 보기');
+    ? (searchAllCounts ? '✓ Show all' : 'Show all')
+    : (searchAllCounts ? '✓ 모두 보기' : '모두 보기');
   btn.title = uiLanguage === 'en'
-    ? 'Off: show only presets for the current image count. On: also show 1/2/3-image presets (current count first).'
-    : '끄면 현재 이미지 수 프리셋만, 켜면 1·2·3개 전체 프리셋을 보여줍니다(현재 이미지 수 우선).';
+    ? 'Off: search only the current image count. On: search 1-, 2- and 3-image presets (current count first).'
+    : '끄면 현재 이미지 수 프리셋만, 켜면 1·2·3개 이미지 프리셋을 모두 보여줍니다(현재 이미지 수 우선).';
 }
 function toggleSearchAllCounts() {
   searchAllCounts = !searchAllCounts;
@@ -6325,8 +6325,7 @@ function renderEdits() {
   const visibleByCount = {1: 0, 2: 0, 3: 0};
   displayPool.forEach(({ item: e, displayCount }) => {
     const catMatch = activeCat === 'all' || e.cat === activeCat;
-    const displayEn = getDisplayEnglish(e);
-    const displayKo = getDisplayKorean(e);
+    const [displayEn, displayKo] = withPresetImageCount(displayCount, () => [getDisplayEnglish(e), getDisplayKorean(e)]);
     const qMatch = !searchQuery || normalizeSearchText(`${e.en || ''} ${e.ko || ''} ${displayEn} ${displayKo}`).includes(searchQuery);
     if (!catMatch || !qMatch) return;
     visible++;
@@ -6359,10 +6358,15 @@ function renderEdits() {
   renderSearchAllToggle();
   if (searchQuery && !allCountsMode) {
     countEl.innerHTML = uiLanguage === 'en' ? `${imgCount}-image search results: <span>${visible}</span>` : `${imgCount}개 이미지 프리셋 검색 결과: <span>${visible}</span>개`;
-    if (visible === 0) grid.innerHTML = uiLanguage === 'en' ? `<div class="no-results">No matching ${imgCount}-image presets. Turn on “Show other image counts” to search 1, 2 and 3 images.</div>` : `<div class="no-results">${imgCount}개 이미지 프리셋에 검색 결과가 없습니다. ‘다른 이미지 수도 보기’를 켜면 1·2·3개 전체에서 찾습니다.</div>`;
+    if (visible === 0) {
+      const inCat = activeCat !== 'all';
+      grid.innerHTML = uiLanguage === 'en'
+        ? `<div class="no-results">No matching ${imgCount}-image presets${inCat ? ' in this category. Select “All” or turn' : '. Turn'} on “Show all” to search 1, 2 and 3 images.</div>`
+        : `<div class="no-results">${imgCount}개 이미지 프리셋${inCat ? '의 현재 카테고리' : ''}에 검색 결과가 없습니다. ${inCat ? '‘전체’ 탭을 누르거나 ' : ''}‘모두 보기’를 켜면 1·2·3개 이미지 프리셋 전체에서 찾습니다.</div>`;
+    }
   } else if (searchQuery) {
     countEl.innerHTML = uiLanguage === 'en' ? `Search results across all image counts: <span>${visible}</span> <span class="search-breakdown">1 image ${visibleByCount[1]} · 2 images ${visibleByCount[2]} · 3 images ${visibleByCount[3]}</span>` : `전체 프리셋 검색 결과: <span>${visible}</span>개 <span class="search-breakdown">1개 ${visibleByCount[1]} · 2개 ${visibleByCount[2]} · 3개 ${visibleByCount[3]}</span>`;
-    if (visible === 0) grid.innerHTML = uiLanguage === 'en' ? '<div class="no-results">No matching presets for 1, 2 or 3 images.</div>' : '<div class="no-results">1·2·3개 이미지 프리셋 전체에서 검색 결과가 없습니다</div>';
+    if (visible === 0) grid.innerHTML = uiLanguage === 'en' ? `<div class="no-results">No matching presets for 1, 2 or 3 images${activeCat !== 'all' ? ' in this category' : ''}.</div>` : `<div class="no-results">1·2·3개 이미지 프리셋 전체${activeCat !== 'all' ? '의 현재 카테고리' : ''}에서 검색 결과가 없습니다</div>`;
   } else {
     const pool = currentEdits();
     countEl.innerHTML = uiLanguage === 'en' ? `<span>${imgCount}-image presets</span> · ${nsfwMode ? 'NSFW · ' : ''}${pool.length} available` : `<span>${imgCount}개 이미지 프리셋</span> ${nsfwMode ? 'NSFW ' : ''}전체 ${pool.length}개 항목`;
@@ -6943,6 +6947,16 @@ function resolveGenericReferenceText(text, cat){
        .replace(/\bUse (image[123]) for ([^,.;]+?) and \1 for ([^,.;]+?)(?=(?:\s+while\b|[,.;]|$))/gi,
         (_, image, first, second) => `Use ${image} for both ${first.trim()} and ${second.trim()}`);
   return s.replace(/__QWEN_REFERENCE_ROLE__/g, 'the reference');
+}
+// '모두 보기'에서 다른 이미지 수의 카드를 그릴 때, 표시 문장을 그 카드의 이미지 수 기준으로 만든다.
+// (표시 로직이 전역 imgCount·roles를 참조하므로 잠시 바꿨다가 반드시 되돌린다.)
+function withPresetImageCount(count, fn){
+  if (count === imgCount) return fn();
+  const prevCount = imgCount;
+  const prevRoles = roles;
+  imgCount = count;
+  roles = [...(DEFAULT_ROLES[count] || DEFAULT_ROLES[1])];
+  try { return fn(); } finally { imgCount = prevCount; roles = prevRoles; }
 }
 function getDisplayEnglish(item){
   const normalized = normalizeEntryForCount(item || {}, imgCount);

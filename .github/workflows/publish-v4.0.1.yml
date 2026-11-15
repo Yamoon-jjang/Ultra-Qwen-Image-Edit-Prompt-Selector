@@ -18,19 +18,7 @@ jobs:
       - name: Check out release source
         uses: actions/checkout@v4
 
-      - name: Check whether the release already exists
-        id: existing
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          if gh release view v4.0.1 >/dev/null 2>&1; then
-            echo 'exists=true' >> "$GITHUB_OUTPUT"
-          else
-            echo 'exists=false' >> "$GITHUB_OUTPUT"
-          fi
-
       - name: Package standalone app, manuals and screenshots
-        if: steps.existing.outputs.exists != 'true'
         run: |
           python3 - <<'PY'
           import pathlib
@@ -53,14 +41,24 @@ jobs:
           print(f'Created {name}: {len(paths)} files')
           PY
 
-      - name: Publish GitHub Release v4.0.1
-        if: steps.existing.outputs.exists != 'true'
+      - name: Publish or refresh GitHub Release v4.0.1
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create v4.0.1 \
-            Ultra-Qwen-Image-Edit-Prompt-Selector_v4.0.1.zip \
-            --title 'Ultra Qwen Image Edit Prompt Selector v4.0.1' \
-            --notes-file RELEASE_NOTES_v4.0.1.md \
-            --target "$GITHUB_SHA" \
-            --latest
+          if gh release view v4.0.1 >/dev/null 2>&1; then
+            # Same version, refreshed build: move the tag to this commit and replace the ZIP.
+            git tag -f v4.0.1 "$GITHUB_SHA"
+            git push -f origin refs/tags/v4.0.1
+            gh release upload v4.0.1 Ultra-Qwen-Image-Edit-Prompt-Selector_v4.0.1.zip --clobber
+            gh release edit v4.0.1 \
+              --title 'Ultra Qwen Image Edit Prompt Selector v4.0.1' \
+              --notes-file RELEASE_NOTES_v4.0.1.md \
+              --latest
+          else
+            gh release create v4.0.1 \
+              Ultra-Qwen-Image-Edit-Prompt-Selector_v4.0.1.zip \
+              --title 'Ultra Qwen Image Edit Prompt Selector v4.0.1' \
+              --notes-file RELEASE_NOTES_v4.0.1.md \
+              --target "$GITHUB_SHA" \
+              --latest
+          fi

@@ -12,8 +12,8 @@ A standalone, browser-based **prompt builder for Qwen image editing**. Combine 4
 
 [한국어 안내](#-한국어-안내) · [English guide](#-english-guide) · [사용 설명서 / Manuals](#-사용-설명서--manuals) · [업데이트 내역 / Changelog](#-업데이트-내역--changelog)
 
-> **🆕 v4.0.1** — 프리셋 검색이 이제 **현재 선택한 이미지 수(1·2·3장)의 결과만** 보여줍니다. 다른 이미지 수 프리셋은 검색 중 나타나는 **‘다른 이미지 수도 보기’** 버튼으로 필요할 때만 함께 볼 수 있습니다.
-> Preset search now shows **only results for the current image count**. Turn on **“Show other image counts”** while searching to include 1-, 2- and 3-image presets. [Download the latest release →](https://github.com/Yamoon-jjang/Ultra-Qwen-Image-Edit-Prompt-Selector/releases/latest)
+> **🆕 v4.0.1** — 프리셋 검색이 이제 **현재 선택한 이미지 수(1·2·3장)의 결과만** 보여줍니다. 다른 이미지 수 프리셋은 검색 중 나타나는 **‘모두 보기’** 버튼으로 필요할 때만 함께 볼 수 있습니다.
+> Preset search now shows **only results for the current image count**. Turn on **“Show all”** while searching to include 1-, 2- and 3-image presets. [Download the latest release →](https://github.com/Yamoon-jjang/Ultra-Qwen-Image-Edit-Prompt-Selector/releases/latest)
 
 ---
 
@@ -40,7 +40,7 @@ A standalone, browser-based **prompt builder for Qwen image editing**. Combine 4
 - **완성형 영어 프롬프트:** 단순히 선택 문장을 나열하는 대신, 이미지 역할과 유지 조건을 고려해 영어 편집 지시문을 구성합니다.
 - **충돌 정리 및 상태 표시:** 서로 충돌하는 선택 사항을 확인하고, 실제 적용된 편집 명령을 미리 봅니다. 최종 프롬프트를 확인하고 사용하세요.
 - **KO/EN 언어 전환:** 한국어 모드에서는 영문 프롬프트와 한글 설명을 함께 표시하고, 영어 모드에서는 한국어 설명을 숨깁니다. 언어 전환으로 프롬프트 내용은 달라지지 않습니다.
-- **검색과 카테고리:** 한국어·영어 검색을 지원합니다. 검색 결과는 기본적으로 **현재 이미지 수의 프리셋만** 표시하며, **‘다른 이미지 수도 보기’**를 켜면 1·2·3장 프리셋 전체를 현재 이미지 수 우선으로 함께 보여줍니다. 일반 프리셋과 성인용(NSFW) 프리셋은 별도 선택으로 구분됩니다.
+- **검색과 카테고리:** 한국어·영어 검색을 지원합니다. 검색 결과는 기본적으로 **현재 이미지 수의 프리셋만** 표시하며, **‘모두 보기’**를 켜면 1·2·3장 프리셋 전체를 현재 이미지 수 우선으로 함께 보여줍니다. 일반 프리셋과 성인용(NSFW) 프리셋은 별도 선택으로 구분됩니다.
 - **나만의 프리셋:** 커스텀 명령의 추가·수정·삭제, 브라우저 저장 및 HTML 파일에 영구 반영하는 기능을 제공합니다.
 - **간편한 결과 활용:** 프롬프트 복사, TXT 저장, 직접 입력을 지원합니다. 한국어 모드에는 영문 프롬프트의 한국어 번역 기능도 있습니다(네트워크 연결이 필요할 수 있음).
 
@@ -91,7 +91,7 @@ A standalone, browser-based **prompt builder for Qwen image editing**. Combine 4
 - **Ready-to-use English prompts.** Combine editing actions into clear directions with explicit image roles and preservation cues instead of manually writing every instruction.
 - **Conflict handling and preview.** Inspect selected and applied instructions before copying the final prompt. Conflicting options may be resolved automatically.
 - **Korean / English interface.** Switch between languages without changing your selected presets or the English prompt output. English mode omits Korean descriptions.
-- **Bilingual preset search** scoped to your current image count by default — turn on **“Show other image counts”** to search all 1-, 2- and 3-image presets (current count listed first). Browse by editing category, with optional NSFW preset filtering.
+- **Bilingual preset search** scoped to your current image count by default — turn on **“Show all”** to search all 1-, 2- and 3-image presets (current count listed first). Browse by editing category, with optional NSFW preset filtering.
 - **Reusable custom presets.** Add, edit, delete, and search custom instructions. Keep them in browser storage or use the permanent HTML save function for a portable copy.
 - **Copy or export.** Copy the final prompt, save it as a TXT file, and add temporary direct instructions. Korean mode also offers optional English-to-Korean prompt translation.
 
@@ -142,14 +142,14 @@ For a more efficient end-to-end editing workflow, pair this prompt builder with 
 
 **한국어**
 - **고침:** 검색어를 입력하면 선택한 이미지 수와 상관없이 1·2·3장 프리셋이 모두 섞여 나오던 문제를 고쳤습니다. 이제 기본적으로 현재 이미지 수의 결과만 표시됩니다.
-- **추가:** 검색 중에 **‘다른 이미지 수도 보기’** 토글이 나타납니다(기본값 꺼짐). 켜면 1·2·3장 전체 결과를 이미지 수별 개수와 함께 보여주며, **현재 이미지 수 결과가 맨 앞**에 옵니다.
+- **추가:** 검색 중에 **‘모두 보기’** 토글이 나타납니다(기본값 꺼짐). 켜면 1·2·3장 전체 결과를 이미지 수별 개수와 함께 보여주며, **현재 이미지 수 결과가 맨 앞**에 옵니다.
 - **고침:** 다른 이미지 수의 검색 결과를 누르면 기존 선택이 **경고 없이 지워지던** 문제를 고쳤습니다. 이제 선택한 항목이 있으면 확인 창이 먼저 뜨고, ‘취소’하면 그대로 유지됩니다.
 - 검색 중 ‘편집 이미지 수’ 1·2·3 버튼을 누르면 검색어는 유지한 채 해당 이미지 수 결과로 바로 바뀝니다.
 - 한글·영문 매뉴얼의 검색 관련 설명을 실제 동작에 맞게 고쳤습니다.
 
 **English**
 - **Fixed:** Searching ignored the selected image count and mixed 1-, 2- and 3-image presets together. Search now shows only the current image count by default.
-- **Added:** A **“Show other image counts”** toggle appears while searching (off by default). When on, all image counts are shown with a per-count breakdown, **current count first**.
+- **Added:** A **“Show all”** toggle appears while searching (off by default). When on, all image counts are shown with a per-count breakdown, **current count first**.
 - **Fixed:** Picking a result for a different image count **silently cleared** your selections. The app now asks for confirmation first; Cancel keeps everything as it was.
 - While searching, the Input Images 1/2/3 buttons keep your search text and switch the results to that count.
 - Korean and English manuals updated to match.

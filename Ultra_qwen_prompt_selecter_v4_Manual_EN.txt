@@ -3,6 +3,7 @@ COMPLETE ENGLISH USER MANUAL — KO / EN BILINGUAL EDITION
 ============================================================
 
 Application: Ultra_qwen_prompt_selecter_v4.html
+Version: v4.0.1
 Purpose: Build image-editing prompts for Qwen-Image-Edit-2511 and Qwen-Image-2.1
 Package: One standalone HTML app + Korean and English text manuals
 Audience: First-time users, regular image editors, and people creating custom presets
@@ -166,7 +167,7 @@ PRESET SEARCH AND CATEGORY TABS
   Search by English or Korean keywords, then choose a category such as
   Face & Hair, Clothing, Pose, Background, Lighting, or Details.
   By default, search only covers the current image count. While searching,
-  a "Show other image counts" button appears to widen it to 1, 2 and 3 images.
+  a "Show all" button appears to widen it to 1, 2 and 3 images.
   The separate NSFW switch controls which adult/general presets are shown.
 
 PRESET CARDS
@@ -376,7 +377,7 @@ By default, search results show only presets for the image count you have
 selected (1, 2 or 3 images). While a search is active, clicking the "Input
 Images" 1/2/3 buttons keeps your search text and shows results for that count.
 
-To include the other image-count libraries, turn on "Show other image counts"
+To include the other image-count libraries, turn on "Show all"
 next to the result count:
   - The button appears only while a search is active, and it starts OFF.
   - When ON, matching entries from all three image-count libraries are shown
@@ -386,7 +387,7 @@ next to the result count:
   - Click the button again to return to current-count results only.
 
 If the current image count has no matches, the empty-result message reminds
-you that you can turn on "Show other image counts".
+you that you can turn on "Show all".
 
 Be careful when choosing a result for a different image count. If you have
 selected presets, the app asks for confirmation before clearing them; choose
@@ -868,7 +869,7 @@ the embedded copy from that saved HTML file.
 ------------------------------------------------------------
 
 PROBLEM: No presets appear.
-  - Clear the search box, or turn on "Show other image counts" while searching.
+  - Clear the search box, or turn on "Show all" while searching.
   - Switch to All or another relevant category.
   - Verify the image count is correct.
   - Check whether SFW or NSFW is enabled.
@@ -1705,7 +1706,7 @@ A. The first click selects it. Clicking that same selected card again
 Q. What happens when I pick a search result for a different image count?
 A. The app switches image-count mode. If you have selected presets, it asks
    for confirmation first; Cancel keeps your current selections. Results for
-   other image counts appear only when "Show other image counts" is ON.
+   other image counts appear only when "Show all" is ON.
    Check the new input-image count.
 
 Q. Can I write "image4" in a custom preset?

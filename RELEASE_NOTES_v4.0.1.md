@@ -9,7 +9,7 @@
 - **지금:** 기본적으로 **현재 이미지 수의 프리셋만** 검색 결과에 나옵니다. 예: 2장을 고른 상태에서 "의상" → 2장 프리셋 66개만 표시.
 - 검색 중 **편집 이미지 수 1·2·3 버튼**을 누르면 검색어는 그대로 두고 결과만 바뀝니다.
 
-### ➕ ‘다른 이미지 수도 보기’ 토글 (새 기능)
+### ➕ ‘모두 보기’ 토글 (새 기능)
 - 검색어를 입력하면 결과 개수 줄 오른쪽에 버튼이 나타납니다. **기본값은 꺼짐**입니다.
 - 켜면 1·2·3장 프리셋 전체에서 찾고, `1개 46 · 2개 66 · 3개 56`처럼 이미지 수별 개수를 보여줍니다.
 - **현재 선택한 이미지 수의 결과가 맨 앞**에 오고, 나머지가 그 뒤에 이어집니다.
@@ -37,7 +37,7 @@ A maintenance release that makes preset search more accurate and safer.
 - **Now:** Search shows **only presets for the current image count** by default.
 - While searching, the **Input Images 1/2/3** buttons keep your search text and switch the results.
 
-### ➕ New “Show other image counts” toggle
+### ➕ New “Show all” toggle
 - Appears next to the result count while a search is active. **Off by default.**
 - When on, results from all three image-count libraries are shown with a per-count breakdown.
 - **Results for your current image count are listed first.**
